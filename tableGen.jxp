@@ -96,7 +96,7 @@ table.rows = rows;
 
 
 if(th) {
-    th = core.admin.data.th(th);
+    th = adminRoot.data.th(th);
 }
 else {
     th = [];
@@ -143,8 +143,8 @@ if(formatter) {
     }
 }
 
-core.admin.pieces.tableHeader({search: true, th: th, colspan: table.colspan});
-core.admin.pieces.tableBody({table: table, th: th, fields: fields});
-core.admin.pieces.tableFooter({page: page, prevPage: prevPage, nextPage: nextPage, colspan: table.colspan, totalNumPages: table.totalNumPages});
+adminRoot.pieces.tableHeader({search: true, th: th, colspan: table.colspan});
+adminRoot.pieces.tableBody({table: table, th: th, fields: fields});
+adminRoot.pieces.tableFooter({page: page, prevPage: prevPage, nextPage: nextPage, colspan: table.colspan, totalNumPages: table.totalNumPages});
 
 %>

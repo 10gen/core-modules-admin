@@ -1,5 +1,5 @@
 <%
-head.addCSS("NOCDN/~~/admin/assets/jason.css");
+head.addCSS("NOCDN/admin/assets/jason.css");
 head.addScript("/@@/yui/current/yuiloader/yuiloader-beta-min.js");
 head.addScript("/@@/yui/current/dom/dom-min.js");
 head.addScript("/@@/yui/current/json/json-min.js");
@@ -33,9 +33,9 @@ else {
         if(table.rows[i].date instanceof Date)
             table.rows[i].date = table.rows[i].date.format("E MMM dd, yyyy HH:mm:ss");
     }
-    core.admin.pieces.logHeader({title: "Logs in Memory", tagline: "Most recent log messages in memory.", th: th, colspan: fields.length, logs: all});
-    core.admin.pieces.log({table: table});
-    core.admin.pieces.logFooter({colspan: fields.length});
+    adminRoot.pieces.logHeader({title: "Logs in Memory", tagline: "Most recent log messages in memory.", th: th, colspan: fields.length, logs: all});
+    adminRoot.pieces.log({table: table});
+    adminRoot.pieces.logFooter({colspan: fields.length});
 }
 
 %>

@@ -122,7 +122,7 @@ Object.extend(admin.data.Bash.prototype, {
         return {out: this._pwd + '\n', err: ""};
     },
     help: function(files){
-        return {out: Ext.asString(core.admin.data.bash_help) + '\n', err: ""};
+        return {out: Ext.asString(adminRoot.data.bash_help) + '\n', err: ""};
     },
 });
 

@@ -36,7 +36,7 @@ for ( var i=all.keySet().iterator() ; i.hasNext() ;  ){
     print = function(z){
         buf += z;
     }
-    core.admin.pieces.thread( myThread , st );
+    adminRoot.pieces.thread( myThread , st );
     print = savePrint;
     if ( f && ! buf.match( f ) )
 	continue;

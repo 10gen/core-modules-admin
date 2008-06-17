@@ -10,7 +10,7 @@ fields = [];
 <p>10gen provides built-in support for user management, authentication, and access control.</p>
 <div id="myCollection">
 <%
-core.admin.table();
+adminRoot.table();
 %>
 </div>
 <script type="text/javascript">

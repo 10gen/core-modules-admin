@@ -42,13 +42,13 @@ n.forEach( function(z){
     var now10 = now.setMinutes(now.getMinutes()-10);
     var now30 = now.setMinutes(now.getMinutes()-30);
     if(z.date.getTime() >= now1)
-        z.color = '<img src="/~~/admin/assets/img/timestamp_circle_1.gif" />';
+        z.color = '<img src="/admin/assets/img/timestamp_circle_1.gif" />';
     else if(z.date.getTime() >= now10)
-        z.color = '<img src="/~~/admin/assets/img/timestamp_circle_2.gif" />';
+        z.color = '<img src="/admin/assets/img/timestamp_circle_2.gif" />';
     else if(z.date.getTime() >= now30)
-        z.color = '<img src="/~~/admin/assets/img/timestamp_circle_3.gif" />';
+        z.color = '<img src="/admin/assets/img/timestamp_circle_3.gif" />';
     else
-        z.color = '<img src="/~~/admin/assets/img/timestamp_circle_4.gif" />';
+        z.color = '<img src="/admin/assets/img/timestamp_circle_4.gif" />';
 
     z.date = z.date.format("E MMM dd, yyyy HH:mm:ss");
     if ( z.throwable )
@@ -60,6 +60,6 @@ var fields = ["color", "date", "level", "logger", "msg"];
 var table = {rows: n, colspan: fields.length};
 
 response.setHeader( "Content-Type" , "text/json" );
-core.admin.pieces.logBody({fields: fields, table: table});
+adminRoot.pieces.logBody({fields: fields, table: table});
 
 %>

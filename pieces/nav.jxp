@@ -1,14 +1,14 @@
 <%
 var obj = arguments[0] || {};
 var sectionList = obj.sectionList || [];
-var sectionTree = core.admin.data.sectiontree();
+var sectionTree = adminRoot.data.sectiontree();
 %>
 <!-- Top Layout -->
 <div class="container">
   <div class="onecolumn topbar">
     
     <!-- 10gen Logo -->
-    <div class="blhd-left"><a href="/admin/"><img src="/~~/admin/assets/img/logo_10gen_on_blue.gif" width="85" height="48" alt="10gen logo"></a></div>
+    <div class="blhd-left"><a href="/admin/"><img src="/admin/assets/img/logo_10gen_on_blue.gif" width="85" height="48" alt="10gen logo"></a></div>
     
     <!-- Global Nav -->
     <div id="navcontainer">

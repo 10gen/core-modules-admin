@@ -1,6 +1,6 @@
 <p>
 <%
-head.addCSS("NOCDN/~~/admin/assets/jason.css");
+head.addCSS("NOCDN/admin/assets/jason.css");
 
 core.db.db();
 core.content.table();
@@ -19,12 +19,12 @@ if(user.permissions["0"] == "admin") {
 }
 %>
 
-<% core.admin.pieces.dbprofile(); %>
+<% adminRoot.pieces.dbprofile(); %>
 <div id="myCollection">
 <%
 request.action = "searchprofile";
 request.reverse = "true";
-var table = core.admin.table();
+var table = adminRoot.table();
 %>
 </div>
 

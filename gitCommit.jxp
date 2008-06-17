@@ -14,12 +14,12 @@ var merge = g.mergeMessage() != null;
     <textarea name="msg" rows="8" cols="80"><%= request.msg || g.mergeMessage() || "" %></textarea>
   </div>
   <div class="field">
-    <% core.admin.pieces.gitButton(merge? 'commit_as_res': 'commit'); %>
-    <% core.admin.pieces.gitButton('never_mind'); %>
+    <% adminRoot.pieces.gitButton(merge? 'commit_as_res': 'commit'); %>
+    <% adminRoot.pieces.gitButton('never_mind'); %>
   </div>
 </form>
 
 <%
 var foo = g.diff(files, {rev: "HEAD"});
-core.admin.pieces.gitDiff({output: foo.out});
+adminRoot.pieces.gitDiff({output: foo.out});
 %>

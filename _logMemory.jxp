@@ -22,7 +22,7 @@ for(var i in table.rows) {
     if(table.rows[i].date instanceof Date)
         table.rows[i].date = table.rows[i].date.format("E MMM dd, yyyy HH:mm:ss");
 }
-core.admin.pieces.log({table: table});
+adminRoot.pieces.log({table: table});
 
 %>
 

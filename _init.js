@@ -1,3 +1,6 @@
+
+adminRoot = core.modules.admin;
+assert( adminRoot );
 admin = {};
 
 log.admin.level = log.LEVEL.ERROR;

@@ -1,7 +1,7 @@
 <%
 /* dbview.jxp - database content viewer utility */
-head.addCSS("NOCDN/~~/admin/assets/jason.css");
-head.addScript("NOCDN/~~/admin/assets/interpreter.js");
+head.addCSS("NOCDN/admin/assets/jason.css");
+head.addScript("NOCDN/admin/assets/interpreter.js");
 head.push('<script type="text/javascript" src="/@@/yui/current/yuiloader/yuiloader-beta-min.js" ></script>');
 core.content.html();
 
@@ -812,7 +812,7 @@ else {
         searchopts.push({"name" : i, className: "" });
     }
 }
-core.admin.pieces.dbview({ hdr : hdr,
+adminRoot.pieces.dbview({ hdr : hdr,
                            introMsg: introMsg,
                            idxes : idxes,
                            idxid : idxid,
@@ -821,9 +821,9 @@ core.admin.pieces.dbview({ hdr : hdr,
 %>
 <div id="myCollection">
 <%
-core.admin.table();
+adminRoot.table();
 %>
 </div>
 
 
-<script type="text/javascript" src="/~~/admin/assets/objPopup.js"></script>
+<script type="text/javascript" src="/admin/assets/objPopup.js"></script>
