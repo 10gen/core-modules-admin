@@ -145,6 +145,8 @@ finally{
 }
 
 var garbage = tojson(res);
+garbage = garbage.replace(/ObjectId.*\((.+?)\)/, '$1');
+garbage = garbage.replace(/new Date.*\((.+?)\)/, '$1');
 if(! JSON.isValid(garbage)){
     // res doesn't tojson into actual JSON
     buffer.termCommand("warn", {$message: "Returned object did not convert to valid JSON. Returning wrapped object."});
