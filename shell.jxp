@@ -3,8 +3,8 @@
 // this file will always be run first, and because this way it reduces the
 // amount of code that _shell has to run (i.e. improves latency of response.
 // Also, we need it here. (oops)
-core.admin.data.shellsession();
-core.admin.data.bash();
+adminRoot.data.shellsession();
+adminRoot.data.bash();
 core.ext.pluck();
 core.ext.buffer();
 
@@ -15,9 +15,9 @@ if( ! session ){
 }
 session.postload();
 
-head.addCSS("NOCDN/~~/admin/assets/shell.css");
-head.addCSS("NOCDN/~~/admin/assets/logger.css");
-head.addCSS("NOCDN/~~/admin/assets/logger-skin.css");
+head.addCSS("NOCDN/admin/assets/shell.css");
+head.addCSS("NOCDN/admin/assets/logger.css");
+head.addCSS("NOCDN/admin/assets/logger-skin.css");
  %>
 
  <!-- Heading and links-table Links -->
@@ -43,9 +43,9 @@ head.addCSS("NOCDN/~~/admin/assets/logger-skin.css");
 <script type="text/javascript" src="/~~/ui/js/compat.js"></script>
 <script type="text/javascript" src="/@@/yui/current/yuiloader/yuiloader-beta.js"></script>
 <script type="text/javascript" src="/@@/dojo/current/dojo/dojo.js"></script>
-<script type="text/javascript" src="NOCDN/~~/admin/assets/interpreter.js"></script>
+<script type="text/javascript" src="NOCDN/admin/assets/interpreter.js"></script>
 	<div class="yui-skin-sam"> 
 <script type="text/javascript">
-<% core.admin.assets.clientShell({user: user, session: session}); %>
+<% adminRoot.assets.clientShell({user: user, session: session}); %>
 </script>
 	</div>

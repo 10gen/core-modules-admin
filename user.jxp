@@ -7,7 +7,7 @@ head.addScript( "/@@/yui/current/button/button-min.js" );
 head.addScript( "/@@/yui/current/container/container-min.js" );
 
 if(request.action == "cancel" || request['cancel.x'] || request.cancel){
-    return response.sendRedirectTemporary("/~~/admin/users");
+    return response.sendRedirectTemporary("/admin/users");
 }
 
 var u = null;
@@ -43,7 +43,7 @@ if ( u && (request.action == "save" || request['save.x'] || request.save)){
     if(! problem){
         try {
             db.users.save( u );
-            response.sendRedirectTemporary("/~~/admin/users");
+            response.sendRedirectTemporary("/admin/users");
         }
         catch(e){
             problem = e;

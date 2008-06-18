@@ -1,6 +1,6 @@
 <% 
 
-var f = core.admin.editor;
+var f = adminRoot.editor;
 
 if (f != null) {
 	f.ed( { baseURL : "/~~/admin/editor/" } ); 

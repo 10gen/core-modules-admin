@@ -46,7 +46,7 @@ LocalEdit.save = function(){
     var postData = "action=save&file=" + escape( LocalEdit.curFile );
     postData += "&content=" + escape( $( "content" ).value );
     
-    var res = loadDocSync( "/~~/admin/_localEditControl" , postData );
+    var res = loadDocSync( "/admin/_localEditControl" , postData );
 
     if ( res.match( /OK/ ) ){
         //window.alert( "Saved" );
@@ -106,7 +106,7 @@ LocalEdit.doneEditing = function(){
 LocalEdit.openFile = function( f ){
     f = f.replace( /\/+/g , "/" );
     LocalEdit.curFile = f;
-    var url = "/~~/admin/_localEditControl?action=load&file=" + escape( f );
+    var url = "/admin/_localEditControl?action=load&file=" + escape( f );
     loadDocAsync( url , LocalEdit.openFileHandler );
 }
 
@@ -130,7 +130,7 @@ LocalEdit.openFileHandler = function( txt ){
 
 LocalEdit.openDirectory = function( dir ){
     dir = dir || "/";
-    var url = "/~~/admin/_localEditControl?action=ls&root=" + escape( dir );
+    var url = "/admin/_localEditControl?action=ls&root=" + escape( dir );
     loadDocAsync( url , LocalEdit.openDirectoryHandler );
 };
 

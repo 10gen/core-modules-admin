@@ -13,7 +13,7 @@ core.ext.pluck();
 core.content.html();
 core.core.file();
 
-head.addCSS("NOCDN/~~/admin/assets/gitLocal.css");
+head.addCSS("NOCDN/admin/assets/gitLocal.css");
 head.addCSS("NOCDN/@@/yui/current/container/assets/container.css");
 
 var g = new git.Repo(); 
@@ -26,7 +26,7 @@ var showHeader = function(){
     revid = g.getCurrentRev().parsed.rev;
     var revmsg = g.getCommit(revid).parsed.message;
     revmsg = revmsg.substring(0, revmsg.indexOf('\n'));
-    core.admin.pieces.gitHeader({revid: revid, revmsg: revmsg,
+    adminRoot.pieces.gitHeader({revid: revid, revmsg: revmsg,
                                  msg: output
                                 });
     // disable future calls to showHeader
@@ -146,7 +146,7 @@ if ( request.action == "pull" ){
             log("from: " + oldRev + " to: " + newRev + " revs: " + tojson(g.listRevs(oldRev, newRev).parsed.revs));
             showHeader();
             g.listRevs(oldRev, newRev).parsed.revs.forEach(function(z){ 
-                core.admin.pieces.gitPulledRev(z);
+                adminRoot.pieces.gitPulledRev(z);
             });
         }
     }
@@ -160,7 +160,7 @@ else if ( request.action == "push" ){
         showHeader();
 %>
 <p class="msg">Push failed. Try pulling first.</p>
-<form method="POST"><input type="image" src="/~~/admin/assets/img/button_pull_on_white.gif" name="action" value="pull" alt="Push"></form>
+<form method="POST"><input type="image" src="/admin/assets/img/button_pull_on_white.gif" name="action" value="pull" alt="Push"></form>
 <%
         return;
     }
@@ -170,7 +170,7 @@ else if ( request.action == "push" ){
     else {
         showHeader();
         g.listRevs(foo.parsed.from, foo.parsed.to).parsed.revs.forEach(function(z){ 
-            core.admin.pieces.gitPushedRev(z);
+            adminRoot.pieces.gitPushedRev(z);
         });
         g.fetch();
     }
@@ -185,7 +185,7 @@ else if ( request.action == "diff" && request.changed_file ){
     // Changed files
     output += ( "Diffinf...<br>" );
     var foo = g.diff(request.getParameters('changed_file'), {rev: "HEAD"});
-    core.admin.pieces.gitDiff({output: foo.out});
+    adminRoot.pieces.gitDiff({output: foo.out});
 }
 else if ( (request.action == "commit" && request.changed_file) || request.action == "commit_as_res" ){
     if(request.action == 'commit_as_res' && ! g.mergeMessage()){
@@ -206,7 +206,7 @@ else if ( (request.action == "commit" && request.changed_file) || request.action
 
     if ( showDiff ) {
         showHeader();
-        return core.admin.gitCommit(g, files);
+        return adminRoot.gitCommit(g, files);
     }
     else {
 	output += ( "Commit...<br>" );
@@ -274,7 +274,7 @@ showHeader();
 var branch = g.getCurrentBranch().parsed.branch;
 
 if(g.showRef("origin/"+branch).parsed.rev != g.showRef("heads/"+branch).parsed.rev){
-    core.admin.pieces.gitNotPushed();
+    adminRoot.pieces.gitNotPushed();
 }
 
 
@@ -287,7 +287,7 @@ if(g.showRef("origin/"+branch).parsed.rev != g.showRef("heads/"+branch).parsed.r
           <li><nobr><b>Revision ID:</b> <a href=""><%= revid %></a></nobr></li>
           <% // fixme -- NOCDN needed? %>          
 <form method="POST">
-          <li style="float: right;"><div><input type="image" src="/~~/admin/assets/img/button_push_on_tan.gif" name="action" value="push" alt="Push">&nbsp;<input type="image" src="/~~/admin/assets/img/button_pull_on_tan.gif" name="action" value="pull" alt="Pull"></div></li>
+          <li style="float: right;"><div><input type="image" src="/admin/assets/img/button_push_on_tan.gif" name="action" value="push" alt="Push">&nbsp;<input type="image" src="/admin/assets/img/button_pull_on_tan.gif" name="action" value="pull" alt="Pull"></div></li>
 </form>
         </ul>
       </td>
@@ -297,15 +297,15 @@ if(g.showRef("origin/"+branch).parsed.rev != g.showRef("heads/"+branch).parsed.r
   <input type="hidden" name="toBeDetermined" />
   <input type="hidden" name="toBeFilename" />
     <tr class="white-top">
-      <td class="left"><img src="NOCDN/~~/admin/assets/img/transparent.gif" width="14" height="1"></td>
+      <td class="left"><img src="NOCDN/admin/assets/img/transparent.gif" width="14" height="1"></td>
       <td class="middle">&nbsp;</td>
-      <td class="right"><img src="NOCDN/~~/admin/assets/img/transparent.gif" width="14" height="1"></td>
+      <td class="right"><img src="NOCDN/admin/assets/img/transparent.gif" width="14" height="1"></td>
     </tr>
 <%
 log(tojson(parsed));
 ["changed", "untracked"].forEach(function(type){
     if(! parsed[type]) return;
-    core.admin.pieces.gitFileList({title: filetitles[type], massActions: buttons[type],
+    adminRoot.pieces.gitFileList({title: filetitles[type], massActions: buttons[type],
                                    checked: checked, unadd: newfiles,
                                    unmerged: unmerged, filevar: type+"_file",
                                    filenames: parsed[type].map(Ext.pluck('name')),
@@ -336,4 +336,4 @@ log(tojson(parsed));
     </div>
   </div>
 </div>
-<script src="NOCDN/~~/admin/assets/gitPopup.js" type="text/javascript">
+<script src="NOCDN/admin/assets/gitPopup.js" type="text/javascript">

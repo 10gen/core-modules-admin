@@ -1,5 +1,5 @@
 <%
 
-core.admin.logScroll();
+adminRoot.logScroll();
 
 %>

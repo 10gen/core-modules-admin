@@ -1,5 +1,5 @@
 <%
 
-core.admin.dbview();
+adminRoot.dbview();
 
 %>

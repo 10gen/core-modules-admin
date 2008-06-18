@@ -43,7 +43,8 @@ if ( ! allowed ){
     return Auth.cookie.reject( request , response , null, {reason: "You cannot access the admin application because you are not an admin."});
 }
 
-var sectionMap = core.admin.data.sectiontree().reverse;
+assert( adminRoot );
+var sectionMap = adminRoot.data.sectiontree().reverse;
 
 var sectionList = sectionMap[sectionName];
 
@@ -88,9 +89,9 @@ if ( section == null && sectionName.match( /\// ) ){
 
 if ( section == null ) {
     if(defaultPage[sectionName])
-        section = core.admin[ defaultPage[sectionName] ];
+        section = adminRoot[ defaultPage[sectionName] ];
     else
-        section = core.admin[ sectionName ];
+        section = adminRoot[ sectionName ];
 }
 
 if ( isFunction( section ) &&
@@ -101,7 +102,7 @@ if ( isFunction( section ) &&
 }
 
 if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
-    core.admin.pieces.header({sectionList: sectionList,
+    adminRoot.pieces.header({sectionList: sectionList,
                              });
 
     if ( isFunction( sectionHeader ) )
@@ -120,6 +121,6 @@ if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
    if ( isFunction( sectionFooter ) )
        sectionFooter();
 
-    core.admin.pieces.footer();
+    adminRoot.pieces.footer();
 }
 %>

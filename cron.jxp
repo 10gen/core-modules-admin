@@ -1,8 +1,8 @@
 <%
-head.addCSS("NOCDN/~~/admin/assets/jason.css");
+head.addCSS("NOCDN/admin/assets/jason.css");
 head.addCSS("/@@/yui/current/container/assets/skins/sam/container.css");
 head.addCSS("button/assets/skins/sam/button.css");
-head.addScript("NOCDN/~~/admin/assets/interpreter.js");
+head.addScript("NOCDN/admin/assets/interpreter.js");
 head.push('<script type="text/javascript" src="/@@/yui/current/yuiloader/yuiloader-beta-min.js" ></script>');
 head.push('<script type="text/javascript" src="/@@/yui/current/yahoo-dom-event/yahoo-dom-event.js" ></script>');
 head.push('<script type="text/javascript" src="/@@/yui/current/element/element-beta-min.js" ></script>');
@@ -118,7 +118,7 @@ refreshTable();
 /*request.pageName = "cron";
 request.ns = "admin.cron";
 request.action = "search";
-core.admin.table();
+adminRoot.table();
 */
 
 if ( request._run == "true" ){

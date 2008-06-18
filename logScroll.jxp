@@ -1,5 +1,5 @@
 <%
-head.addCSS("NOCDN/~~/admin/assets/jason.css");
+head.addCSS("NOCDN/admin/assets/jason.css");
 head.addScript("/@@/yui/current/yuiloader/yuiloader-beta-min.js");
 head.addScript("/@@/yui/current/dom/dom-min.js");
 head.addScript("/@@/yui/current/json/json-min.js");
@@ -11,8 +11,8 @@ var th = ['',
     '<a href="">MESSAGE</a>'];
 var pausible = true;
 var colspan = th.length;
-core.admin.pieces.logHeader({title: "Scrolling Logs", tagline: "The log viewer displays a live view of all logs kept by this environment. The log messages can be filtered using a JavaScript grep expression.", colspan : colspan, th: th, pausible: pausible});
-core.admin.pieces.logFooter({colspan : colspan});
+adminRoot.pieces.logHeader({title: "Scrolling Logs", tagline: "The log viewer displays a live view of all logs kept by this environment. The log messages can be filtered using a JavaScript grep expression.", colspan : colspan, th: th, pausible: pausible});
+adminRoot.pieces.logFooter({colspan : colspan});
 
 %>
 

@@ -1,4 +1,4 @@
 <%
-   head.addCSS("/~~/admin/assets/top.css");
+   head.addCSS("/admin/assets/top.css");
    core.core.sys.threadDetail();
 %>

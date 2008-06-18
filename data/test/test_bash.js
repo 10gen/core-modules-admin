@@ -1,4 +1,4 @@
-core.admin.data.bash();
+adminRoot.data.bash();
 core.core.file();
 
 sysexec("rm -r testbash");

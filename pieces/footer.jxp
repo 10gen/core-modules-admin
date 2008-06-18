@@ -1,4 +1,4 @@
-<% core.admin.pieces.navLeftClose(); %>
+<% adminRoot.pieces.navLeftClose(); %>
 <div class="onecolumn">
 <p class="footer">10gen Admin | <%= Date() %></p>
 </div>

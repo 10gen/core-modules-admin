@@ -218,9 +218,9 @@ function threeMonthSummary(limit, t) {
     table.rows[3].push(formatBytes(total.io));
     table.rows[3].push(formatMillis(total.millis));
 
-    core.admin.pieces.tableHeader({th: th, search: false, colspan: th.length});
-    core.admin.pieces.usageBody({th: th, table: table});
-    core.admin.pieces.tableFooter({page: [], colspan: th.length});
+    adminRoot.pieces.tableHeader({th: th, search: false, colspan: th.length});
+    adminRoot.pieces.usageBody({th: th, table: table});
+    adminRoot.pieces.tableFooter({page: [], colspan: th.length});
 
 }
 
