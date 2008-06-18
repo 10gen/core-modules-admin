@@ -145,7 +145,7 @@ finally{
 }
 
 var garbage = tojson(res);
-if(! JSON.check(garbage)){
+if(! JSON.isValid(garbage)){
     // res doesn't tojson into actual JSON
     buffer.termCommand("warn", {$message: "Returned object did not convert to valid JSON. Returning wrapped object."});
     res = {"not_json" : garbage};
