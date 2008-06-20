@@ -27,11 +27,11 @@ if ( sectionName == "" || sectionName.match( /^index/ ) )
 var allowed = _openAccess;
 
 /*
- *  check to see if the site set permissioning for the admin module.  if not, make a dummy that returns false as this is 
+ *  check to see if the site set permissioning for the admin module.  if not, make a dummy that returns false as this is
  *  testing for non-admin users
  */
 var perm = (allowModule && allowModule.admin) ? allowModule.admin.permissions : { allowed : function() { return false; }};
-	
+
 if( ! allowed && user && perm.allowed(user, request, sectionName) )
     allowed = true;
 
@@ -73,7 +73,7 @@ if ( section == null && sectionName.match( /\// ) ){
     var moduleName = sectionName.substring( 0 , idx );
     var piece = sectionName.substring( idx + 1 );
 
-    var locations = [core[moduleName], core.app[moduleName]];
+    var locations = [core[moduleName], core.app[moduleName], core.modules[moduleName]];
     for(var i in locations){
         var moduleThing = locations[i];
         if ( moduleThing && moduleThing.admin && moduleThing.admin[ piece ] ){
