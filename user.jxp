@@ -1,4 +1,5 @@
 <%
+core.ext.pluck();
 // FIXME: Furious hack to make Webtest work with YUILoader
 head.addScript( "/@@/yui/current/get/get-min.js" );
 head.addScript( "/@@/yui/current/yahoo-dom-event/yahoo-dom-event.js" );
@@ -51,19 +52,14 @@ if ( u && (request.action == "save" || request['save.x'] || request.save)){
     }
 }
 
-var allRoles = (allowModule && allowModule.admin ) ? allowModule.admin.permissions.getRoles().toArray() : [] ;
-var rolesMap = {};
-allRoles.forEach(function(z){ rolesMap[z.name] = true; });
+var allRoles = admin.getRoles();
+var rolesList = allRoles.map(Ext.pluck('name'));
 u.getPermissions().forEach(function(z){
-   if(!rolesMap[z]){
-       rolesMap[z] = true;
-       allRoles.push({name: z});
-   }
+    if(!rolesList.contains(z)){
+        rolesList.push(z);
+        allRoles.push({name: z});
+    }
 });
-if(! rolesMap.admin){
-   rolesMap.admin = true;
-   allRoles.push({name: 'admin'});
-}
 print.setFormObject( u );
 %>
 <!-- Heading and links-table Links -->

@@ -14,3 +14,15 @@ admin.getAppNav = function(key){
     return appNav;
 };
 
+admin.getRoles = function(url){
+    var allRoles = (allowModule && allowModule.admin ) ? allowModule.admin.permissions.getRoles(url).toArray() : [] ;
+    var rolesMap = {};
+    allRoles.forEach(function(z){
+        rolesMap[z.name] = true;
+    });
+    if(! rolesMap.admin){
+        rolesMap.admin = true;
+        allRoles.push({name: 'admin'});
+    }
+    return allRoles;
+};
