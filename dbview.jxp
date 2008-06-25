@@ -42,9 +42,7 @@ for( var i in f) {
 
 /* find the indices */
 if(!top) {
-    var x = validate(request.ns.substring( request.ns.indexOf('.')+1 ));
     var introMsg = "Collection Detail provides the user with a means to edit collection detail records, view collection sizing and statistics information, add/drop collection indexes, and query/filter the collection data.";
-    var validation = x.result;
 
     %>
     <p><a href="dbview?currentPage=<%= request.refPage ? request.refPage : 1 %>" style="display: block;">Back to Collection View</a></p>
@@ -815,8 +813,7 @@ else {
 adminRoot.pieces.dbview({ hdr : hdr,
                            introMsg: introMsg,
                            idxes : idxes,
-                           idxid : idxid,
-                           validation : validation });
+                           idxid : idxid });
 
 %>
 <div id="myCollection">
