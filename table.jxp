@@ -368,7 +368,7 @@ else {
             }
             else {
                 fullText += content.HTML.escape(subobj);
-                str = '<span class="partialText" style="cursor:default">'+subobj.substring(0, 18)+"...</span>";
+                str = '<span class="partialText" style="cursor:default">'+content.HTML.escape(subobj).substring(0, 18)+"...</span>";
             }
             fullText += '</div>';
             return str+fullText;
