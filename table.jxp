@@ -352,7 +352,7 @@ else {
             return obj[field];
         }
         else if(typeof obj[field] == "object" || obj[field].toString().length >= 20) {
-            var subobj = content.HTML.escape(obj[field]);
+            var subobj = obj[field];
             var str = "";
             var fullText = '<div class="fullText" id="fulltext'+fcount+'">';
             fcount++;
@@ -367,7 +367,7 @@ else {
                 str = '<span class="partialText" style="cursor:default">(Object)</span>';
             }
             else {
-                fullText += subobj;
+                fullText += content.HTML.escape(subobj);
                 str = '<span class="partialText" style="cursor:default">'+subobj.substring(0, 18)+"...</span>";
             }
             fullText += '</div>';
