@@ -61,7 +61,18 @@ var sectionHeader = null;
 var sectionFooter = null;
 
 if ( sectionName.match( /^my\// ) && jxp.admin ){
-    section = jxp.admin[ sectionName.substring( 3 )];
+    var stripped = sectionName.substring(3);
+    if( stripped.match( /^modules\// ) ){
+        var module = stripped.replace( /^modules\// , '' );
+        var pair = module.split( '/' );
+        // Check that this module is actually installed on the site
+        if(version[ pair[ 0 ] ]){
+            section = local.modules[ pair[ 0 ] ].admin[ pair[ 1 ] ];
+        }
+    }
+    if(! section){
+        section = jxp.admin[ sectionName.substring( 3 )];
+    }
     if ( section && jxp.admin.pieces ){
         sectionHeader = jxp.admin.pieces.header;
         sectionFooter = jxp.admin.pieces.footer;
