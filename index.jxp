@@ -88,7 +88,7 @@ if ( section == null && sectionName.match( /\// ) ){
     for(var i in locations){
         var loc = locations[i];
         var moduleThing = loc[moduleName];
-        if ( moduleThing )
+        if ( moduleThing ){
             if ( moduleThing.admin && moduleThing.admin[ piece ] ){
                 section = moduleThing.admin[piece];
                 if ( section && moduleThing.admin.pieces ){
