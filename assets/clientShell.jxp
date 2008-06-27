@@ -92,10 +92,10 @@ loader.insert({
                 this._elConsole.id = "transcript";
                 this._elBd.appendChild(this._elConsole);
                 this._elBd.appendChild(acdiv);
-                YAHOO.util.Event.addListener(this._elBd, "click",
+/*                YAHOO.util.Event.addListener(this._elBd, "click",
                                              function(){
                                                  focusTextIfNotSelecting(t);
-                                             });
+                                             });*/
 
 
                 scratch = document.createElement("div");
@@ -126,10 +126,10 @@ loader.insert({
             blockOne = false;
         });
 
-        YAHOO.util.Event.addListener(window, "keydown",
+/* YAHOO.util.Event.addListener(window, "keydown",
                                      function(e){
                                          focusTextIfSelecting(t, e);
-                                     });
+                                     }); */
 
         YAHOO.util.Event.addListener(t,"keypress",function(e){
             if(e.keyCode == 13){
