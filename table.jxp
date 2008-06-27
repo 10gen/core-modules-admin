@@ -29,7 +29,7 @@ if(request.action == "validation") {
     }
 
     var x = validate(request.ns);
-    print(x.result && x.result.info ? x.result.info : x.errmsg);
+    print(x.result && x.result ? x.result : x.errmsg);
     return;
 }
 
