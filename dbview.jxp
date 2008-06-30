@@ -48,7 +48,7 @@ if(!top) {
     <p><a href="dbview?currentPage=<%= request.refPage ? request.refPage : 1 %>" style="display: block;">Back to Collection View</a></p>
     <%
     var r = new RegExp(request.ns+".*");
-    var metarows = db["system.namespaces"].find({name: r}).toArray();
+    var metarows = db["system.namespaces"].find({name: r}).limit(200).toArray();
 
     var i=0;
     var idxes = [];
