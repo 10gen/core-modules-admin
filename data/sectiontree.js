@@ -21,8 +21,8 @@ var tree = {
     'files': '/admin/files',
     'cron': '/admin/cron',
     'logs': {
-        'logMemory': 'Logs in Memory',
-        'logScroll': 'Scrolling Logs'
+        'logScroll': 'Logs',
+        'logMemory': 'Raw Logs'
     },
     'shell': '/admin/shell',
 
@@ -33,7 +33,7 @@ var tree = {
  // remove for now until we get this sorted
 
  /*   'docs': '/admin/docs', */
-    
+
     'instance stats' : '/admin/thisinstance' ,
 };
 
