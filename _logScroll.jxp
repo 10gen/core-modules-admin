@@ -8,17 +8,16 @@ if(request.action == "filter") {
     if(request.log_level && request.log_level != "ALL") searchObj.level = request.log_level;
     if(request.ns) searchObj.logger = request.ns;
     if(request.filter) searchObj.msg = new RegExp(request.filter);
-    n = db._logs.find( searchObj ).toArray();
+    n = db._logs.find( searchObj ).limit(100).toArray();
 }
 else
-    n = db._logs.find().toArray();
+    n = db._logs.find().limit(100).toArray();
 
 if ( !n )
     throw "no all";
 
 /* Sort desc */
 n.reverse();
-n.splice(100);
 
 var since = null;
 if ( request.since ) {

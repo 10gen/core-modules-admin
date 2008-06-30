@@ -48,13 +48,14 @@ function updateLog(){
       loadDocAsync( url+getPassOpts() , updateLogHandler );
    }
 }
-var first3 =0;
+
 function updateLogHandler( raw ){
     document.getElementById("temp").innerHTML = raw;
     // the jxp is returning 100 text nodes and 100 trs, so we filter out the text nodes
     var rawlines = document.getElementById("temp").childNodes[1];
     if(!rawlines || !rawlines.childNodes) {
-        setTimeout( updateLog , 1000 );
+        if(timeout > 1) timeout--;
+        else setTimeout( updateLog , 1000 );
         return;
     }
 
@@ -81,7 +82,12 @@ function updateLogHandler( raw ){
         rows--;
     }
 
-    setTimeout( updateLog , 1000 );
+    if(timeout > 1) {
+        timeout--;
+    }
+    else {
+       setTimeout( updateLog , 1000 );
+    }
 }
 
 function totalLogRefresh(raw) {
@@ -92,7 +98,6 @@ function totalLogRefresh(raw) {
         parent.removeChild(toBeRemoved);
         rows--;
     }
-
     updateLogHandler(raw);
 }
 
@@ -105,7 +110,7 @@ var rows = 0;
 var pushNode = document.getElementById( "pushNode" );
 var popNode = document.getElementById( "popNode" );
 
-
+var timeout = 1;
 updateLog();
 
 var ns = 'all';
@@ -125,6 +130,7 @@ function filterResults(id) {
         ns = val;
     }
 
+    timeout++;
     ajax(getPassOpts(), "_logScroll", function(res) {
        all = [];
        totalLogRefresh(res);
@@ -152,7 +158,6 @@ function refreshFilter() {
     mostRecent = null;
     document.getElementById("filter").value = "";
     document.getElementById("log_level").options[0].selected = true;
-    updateLog();
 }
 
 </script>
