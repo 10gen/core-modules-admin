@@ -91,10 +91,10 @@ loader.insert({
                 this._elConsole.id = "transcript";
                 this._elBd.appendChild(this._elConsole);
                 this._elBd.appendChild(acdiv);
-/*                YAHOO.util.Event.addListener(this._elBd, "click",
+                YAHOO.util.Event.addListener(this._elBd, "click",
                                              function(){
                                                  focusTextIfNotSelecting(t);
-                                             });*/
+                                             });
 
 
                 scratch = document.createElement("div");
@@ -368,9 +368,9 @@ var focusTextIfNotSelecting = function(t){
 };
 
 var focusTextIfSelecting = function(t, e){
-    // But if someone selects text and then types something, they probably mean
-    // to type into the console. Unless they don't??? Maybe they're
-    // trying to scroll the page up or down or something.
+    // But if someone selects text and then types something, they might not mean
+    // to type into the console. Maybe they're trying to do a "copy" command
+    // or something else.
     if(window.getSelection().isCollapsed == true)
         return;
     if(e.inScratchText)
