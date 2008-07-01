@@ -84,7 +84,7 @@ if ( section == null && sectionName.match( /\// ) ){
     var moduleName = sectionName.substring( 0 , idx );
     var piece = sectionName.substring( idx + 1 );
 
-    var locations = [core, core.app, core.modules];
+    var locations = [core, core.modules];
     for(var i in locations){
         var loc = locations[i];
         var moduleThing = loc[moduleName];

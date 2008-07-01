@@ -10,7 +10,7 @@ admin.getAppNav = function(key){
     if(core[key]){
         if(core[key].admin && core[key].admin.leftNav) appNav = core[key].admin.leftNav;
     }
-    else if(core.app[key]){
+    else if(core.app && core.app[key]){
         if(core.app[key].admin && core.app[key].admin.leftNav) appNav = core.app[key].admin.leftNav;
     }
     else {
