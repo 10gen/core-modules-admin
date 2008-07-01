@@ -7,8 +7,12 @@ log.admin.level = log.LEVEL.ERROR;
 
 admin.getAppNav = function(key){
     var appNav;
-    if(core[key] && core[key].admin && core[key].admin.leftNav) appNav = core[key].admin.leftNav;
-    else if(core.app[key] && core.app[key].admin && core.app[key].admin.leftNav) appNav = core.app[key].admin.leftNav;
+    if(core[key]){
+        if(core[key].admin && core[key].admin.leftNav) appNav = core[key].admin.leftNav;
+    }
+    else if(core.app[key]){
+        if(core.app[key].admin && core.app[key].admin.leftNav) appNav = core.app[key].admin.leftNav;
+    }
     else {
         try {
             if(core.modules[key] && core.modules[key].admin && core.modules[key].admin.leftNav)
