@@ -13,14 +13,9 @@ admin.getAppNav = function(key){
     else if(core.app && core.app[key]){
         if(core.app[key].admin && core.app[key].admin.leftNav) appNav = core.app[key].admin.leftNav;
     }
-    else {
-        try {
-            if(core.modules[key] && core.modules[key].admin && core.modules[key].admin.leftNav)
+    else if(core.modules.isLoaded(key)){
+        if(core.modules[key] && core.modules[key].admin && core.modules[key].admin.leftNav)
                 appNav = core.modules[key].admin.leftNav;
-        } catch(e) {
-            // couldn't access module and we got an exception
-
-        }
     }
     if (!appNav) appNav = function(){ log.admin.debug("Can't get nav tree for application " + key); return{tree: [], reverse: []}; };
     appNav = appNav();
