@@ -61,7 +61,6 @@ loader.insert({
 
         var t = document.createElement("textarea");
         t.id = "commandac";
-        t.focus();
         t.className = "shellinput";
         // Borrow the AC styling
         t.className += " yui-ac-input";
@@ -327,6 +326,7 @@ loader.insert({
         abortKey = {ctrl: true, keys: 67}; // Ctrl-C
         new YAHOO.util.KeyListener("commandac", abortKey, abortEntry).enable();
 
+        t.focus();
     }
 });
 
