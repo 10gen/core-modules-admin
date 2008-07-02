@@ -8,7 +8,9 @@ log.admin.level = log.LEVEL.ERROR;
 admin.getAppNav = function(key){
     var appNav;
     // Check core.modules first because we don't want to mistakenly load
-    // a file. FIXME: please explain wtf.
+    // a file. We can't yet check core.isLoaded(key) or core.app.isLoaded(key)
+    // so let's check the safe ones before we check if we can load old ones
+    // from corejs.
     if(core.modules.isLoaded(key)){
         if(core.modules[key] && core.modules[key].admin && core.modules[key].admin.leftNav)
                 appNav = core.modules[key].admin.leftNav;
