@@ -96,6 +96,7 @@ pre.inline {
 
 /* For the single-terminal-window look */
 #console textarea.shellinput {
+	font-family: monospace;
     width: 90% !important;
     border: none;
     overflow: hidden;
