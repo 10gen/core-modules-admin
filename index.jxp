@@ -40,7 +40,7 @@ if ( ! allowed && user && user.isAdmin() ){
 }
 
 if ( ! allowed ){
-    return Auth.cookie.reject( request , response , null, {reason: "You cannot access the admin application because you are not an admin."});
+    return Auth.cookie.reject( request , response , null, {reason: "You cannot access the admin application because you are not an admin.", failto: request.getURL()});
 }
 
 assert( adminRoot );
