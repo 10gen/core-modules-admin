@@ -63,7 +63,7 @@ function refreshTable(passData){
         passData = passData+"&";
     else
         passData = "";
-    ajax("ns=admin._files&action=filessearch&currentPage="+currentPage+"&"+passData+lastSearch, "table", function(response) {
+    ajax("ns=admin._files&action=filessearch&currentPage="+currentPage+"&sortcol=uploadDate&sortdir=-1&"+passData+lastSearch, "table", function(response) {
         document.getElementById("myCollection").innerHTML = response;
     });
 }
