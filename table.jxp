@@ -348,7 +348,7 @@ else {
         else if (!obj[field]) {
             return '<div class="nullfield"><b>-</b></div>';
         }
-        else if (typeof obj[field] == "native" || typeof obj[field] == "function") {
+        else if (typeof obj[field] == "native" || typeof obj[field] == "function" || typeof obj[field] == "objectid") {
             return obj[field];
         }
         else if(typeof obj[field] == "object" || obj[field].toString().length >= 20) {
