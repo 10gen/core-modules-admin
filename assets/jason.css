@@ -666,13 +666,13 @@ td.maincontent div.links-table a:hover.external {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-    cursor: pointer;
+        cursor: pointer;
 }
 
 #paging ul li.active {
 	padding: 5px 6px 2px 6px;
 	font-size: 12px;
-	color: #fff;
+	color: #ffffff;
 	background:url(img/paging_circle_active_on_tan.gif) no-repeat left bottom;
         cursor: default;
 }
@@ -680,7 +680,7 @@ td.maincontent div.links-table a:hover.external {
 #paging ul li.modactive {
 	padding: 5px 3px 2px 2px;
 	font-size: 12px;
-	color: #fff;
+	color: #ffffff;
 	background:url(img/paging_circle_active_on_tan.gif) no-repeat left bottom;
 }
 
@@ -689,24 +689,16 @@ td.maincontent div.links-table a:hover.external {
 	font-size: 12px;
 	text-align: center;
 	text-decoration: none;
-	color: #fff;
+	color: #ffffff;
 	background:url(img/paging_circle_on_tan.gif) no-repeat left bottom;
 }
 
 #paging ul li.cycle a, #paging ul li.cycle a:visited {
-	padding: 5px 6px 2px 6px;
+	padding: 5px 3px;
 	font-size: 12px;
 	text-align: center;
-	color: #fff;
-	background:url(img/paging_circle_back_on_tan.gif) no-repeat left top;
-}
-
-#paging ul li.cycle a:hover {
-	padding: 5px 6px 2px 6px;
-	font-size: 12px;
-	text-align: center;
-	color: #fff;
-	background:url(img/paging_circle_back_on_tan.gif) no-repeat left -181px;
+	color: #999999;
+	background-image:none;
 }
 
 #paging ul li.mod a, #paging ul li.mod a:visited {
@@ -722,6 +714,10 @@ td.maincontent div.links-table a:hover.external {
 }
 
 #paging ul li a:hover, #paging ul li a:visited:hover {
+	color: #555656;
+}
+
+#paging ul li.cycle a:hover, #paging ul li.cycle a:visited:hover {
 	color: #555656;
 }
 
