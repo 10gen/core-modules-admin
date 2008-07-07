@@ -1,6 +1,6 @@
 <p>
 <%
-head.addCSS("NOCDN/admin/assets/jason.css");
+head.addCSS("NOCDN/admin/assets/admin.css");
 
 core.db.db();
 core.content.table();

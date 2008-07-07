@@ -1,5 +1,5 @@
 <%
-head.addCSS("NOCDN/admin/assets/jason.css");
+head.addCSS("NOCDN/admin/assets/admin.css");
 head.addCSS("/@@/yui/current/container/assets/skins/sam/container.css");
 head.addCSS("button/assets/skins/sam/button.css");
 head.addScript("NOCDN/admin/assets/interpreter.js");

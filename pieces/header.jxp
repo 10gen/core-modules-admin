@@ -8,7 +8,7 @@ var obj = arguments[0];
 
 head.addCSS( "NOCDN/admin/assets/css.jxp" );
 head.addCSS( "NOCDN/admin/assets/leftNav.css" );
-head.addCSS( "NOCDN/admin/assets/jason.css" );
+head.addCSS( "NOCDN/admin/assets/admin.css" );
 
 %>
 <% response.setHeader( "Content-Type" , "text/html;charset=UTF-8" ); %>
