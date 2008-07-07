@@ -1,3 +1,82 @@
-.error {
-    color: #f00;
-}
+	body {
+		background-color: #e7e4d6;
+		background: #e7e4d6 url(/~~/modules/admin/assets/img/login_back.gif) no-repeat top center; 
+	}
+
+	legend {
+		display: none;
+	}
+	
+	/* Login Form */
+	/* Sign Up Form */
+
+	form.edit {  /* set width in form, not fieldset (still takes up more room w/ fieldset width */
+		margin: 0;
+		padding: 0;
+		font-size: 14px;
+	}
+
+	form.edit textarea {
+		width: auto;
+	}
+
+	form.edit fieldset, div.fieldset {
+		width: auto;
+	  	border: none;
+	  	padding: 80px 10px;        /* padding in fieldset support spotty in IE */
+	  	margin: 0;
+	  	/ * clear: both; note that this clear causes inputs to break to left in ie5.x mac, commented out */
+	}
+
+	form.edit input.text {
+		padding: 2px;
+		width: 215px;
+		border: 1px solid;
+		border-color: #999 #ccc #ccc #999;
+	}
+
+	form.edit input.submit, input.button {
+		position: relative;
+		top: 1em;
+		padding: 2px 8px; 
+		border: 1px solid;
+		border-color: #ccc #999 #999 #ccc;
+		background-color: #ccc;
+		font-size:14px;
+	}
+
+	legend {
+		font-size: 123%; 
+	}
+
+	form.edit label {
+		display: block;  /* block float the labels to left column, set a width */
+		float: left;
+		width: 4.5em;
+		padding: 5px 10px 10px 0;
+		margin: 10px 0 0; /* set top margin same as form input - textarea etc. elements */
+		text-align: right;
+		font-weight: bold;
+	}
+
+	form.edit input, form.edit textarea, form.edit select {
+		/* display: inline; inline display must not be set or will hide submit buttons in IE 5x mac */
+		width:auto;      /* set width of form elements to auto-size, otherwise watch for wrap on resize */
+		margin:0 0 0 0; /* set margin on left of form elements rather than right of
+	                              label aligns textarea better in IE */
+	}
+
+	form.edit textarea { overflow: auto; }
+
+	form.edit .required{font-weight:bold;} /* uses class instead of div, more efficient */
+
+	form.edit br {
+		clear:left; /* setting clear on inputs didn't work consistently, so brs added for degrade */
+	}
+	
+	p.login {
+		margin-top: 4em;
+		padding-left: 255px;
+		text-align: left;
+		width: 400px;
+	}

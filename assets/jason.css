@@ -4,11 +4,11 @@
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;font-variant:normal;}sup {vertical-align:text-top;}sub {vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}body {font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}table {font-size:inherit;font:100%;}pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%;}
 
 body {
-	background-color: #ffffff;
+	background-color: #fff;
 	font-family: helvetica, arial, sans-serif;
 	background-image:url(img/header_back.gif);
 	background-repeat: repeat-x;
-	background-color: #ffffff;
+	background-color: #fff;
 }
 
 div, p, ul, ol {
@@ -156,7 +156,7 @@ img {
 	line-height: 24px;
 	font-size: 12px;
 	text-decoration: none;
-	color: #ffffff;
+	color: #fff;
 }
 
 #navcontainer ul li a:hover, #navcontainer ul li a:visited:hover {
@@ -179,13 +179,13 @@ img {
 	background:url(img/header_login_left.gif) no-repeat left bottom;
 	background-color:#0f2659;
 	font-size: 11px;
-	color: #ffffff;
+	color: #fff;
 }
 
 #login_status a, #login_status a:visited {
 	font-size: 11px;
 	text-decoration: none;
-	color: #ffffff;
+	color: #fff;
 }
 
 #login_status a:hover, #login_status a:visited:hover {
@@ -398,7 +398,7 @@ td.maincontent tr.white-bottom th.right, td.maincontent tr.white-bottom td.right
 td.maincontent tr.white-main th, td.maincontent tr.white-main td {
 	margin: 0;
 	padding: 0 1.5em 0 0;
-	background-color: #ffffff;
+	background-color: #fff;
 	font-size: 11px;
 	line-height: 2em;
 }
@@ -666,13 +666,13 @@ td.maincontent div.links-table a:hover.external {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-        cursor: pointer;
+    cursor: pointer;
 }
 
 #paging ul li.active {
 	padding: 5px 6px 2px 6px;
 	font-size: 12px;
-	color: #ffffff;
+	color: #fff;
 	background:url(img/paging_circle_active_on_tan.gif) no-repeat left bottom;
         cursor: default;
 }
@@ -680,7 +680,7 @@ td.maincontent div.links-table a:hover.external {
 #paging ul li.modactive {
 	padding: 5px 3px 2px 2px;
 	font-size: 12px;
-	color: #ffffff;
+	color: #fff;
 	background:url(img/paging_circle_active_on_tan.gif) no-repeat left bottom;
 }
 
@@ -689,16 +689,24 @@ td.maincontent div.links-table a:hover.external {
 	font-size: 12px;
 	text-align: center;
 	text-decoration: none;
-	color: #ffffff;
+	color: #fff;
 	background:url(img/paging_circle_on_tan.gif) no-repeat left bottom;
 }
 
 #paging ul li.cycle a, #paging ul li.cycle a:visited {
-	padding: 5px 3px;
+	padding: 5px 6px 2px 6px;
 	font-size: 12px;
 	text-align: center;
-	color: #999999;
-	background-image:none;
+	color: #fff;
+	background:url(img/paging_circle_back_on_tan.gif) no-repeat left top;
+}
+
+#paging ul li.cycle a:hover {
+	padding: 5px 6px 2px 6px;
+	font-size: 12px;
+	text-align: center;
+	color: #fff;
+	background:url(img/paging_circle_back_on_tan.gif) no-repeat left -181px;
 }
 
 #paging ul li.mod a, #paging ul li.mod a:visited {
@@ -714,10 +722,6 @@ td.maincontent div.links-table a:hover.external {
 }
 
 #paging ul li a:hover, #paging ul li a:visited:hover {
-	color: #555656;
-}
-
-#paging ul li.cycle a:hover, #paging ul li.cycle a:visited:hover {
 	color: #555656;
 }
 
