@@ -866,3 +866,7 @@ div.existing_index {
 div.existing_index span {
         font-size: 10px;
 }
+
+div.error {
+		color:#ff6600;
+}

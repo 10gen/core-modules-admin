@@ -80,3 +80,11 @@
 		text-align: left;
 		width: 400px;
 	}
+	
+	div.error {
+		position: absolute;
+		top: 95px; 
+		width: 100%;
+		text-align: center;
+		margin: 0 auto;
+	}
