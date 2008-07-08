@@ -21,9 +21,11 @@ sectionName = sectionName.replace(/^\/(index)?$/, '');
 if ( sectionName.endsWith("/") && sectionName.length > 1 )
     sectionName += "index";
 
-if ( sectionName == "" || sectionName.match( /^index/ ) )
-    sectionName = "welcome";
-
+if ( sectionName == "" || sectionName.match( /^index/ ) ){
+    sectionName = user.adminSection;
+    if(sectionName == null)
+        sectionName = "welcome";
+}
 var allowed = _openAccess;
 
 /*
@@ -127,8 +129,13 @@ if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
         sectionHeader();
 }
 
-if ( isFunction( section ) )
+if ( isFunction( section ) ){
+    if( ! ajaxFunctions.contains(sectionName) ){
+        user.adminSection = sectionName;
+        db.users.save(user);
+    }
     section();
+}
 else {
     print( "<p>Welcome <b>" +  user.name  + "</b> to the admin section for <b>" +  db.getName() + "</b>" );
     if ( jxp.admin && jxp.admin[ "_index" ] )
