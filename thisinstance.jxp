@@ -1,3 +1,7 @@
+<h1 style="margin-bottom: 1em;">
+  <div class="links-table"></div>
+  <nobr>Instance Stats</nobr>
+</h1>
 
 <%
     if ( request.action == "Reset Scope" ){
@@ -6,19 +10,19 @@
             print( "scope reset" );
         }
         else {
-            print( "are you sure you want to reset scope?" );
+            print( "<p style='padding-bottom: .5em;'>Are you sure you want to reset scope? </p>" );
             %>
 <form>
   <input type="hidden" name="action" value="Reset Scope">
-  <input type="submit" name="sure" value="yes">
+  <input type="image" src="assets/img/button_yes_on_white.gif" name="sure" value="yes"/>
 </form>
-<hr>
 
 <%
         }
     }
 %>
 
+<div class="data-display">
 <table>
 
   <tr>
@@ -47,9 +51,9 @@
   </tr>
 
 </table>
-<hr>
+</div>
 
 <form>
-  <input type="submit" name="action" value="Reset Scope">
+  <input type="image" src="assets/img/button_reset_scope_on_white.gif" name="action" value="Reset Scope"/>
 </form>
 
