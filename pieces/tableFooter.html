@@ -38,7 +38,7 @@ var nextPage = obj.nextPage;
             </forin>
             <if nextPage>
 	      <li class="cycle" style="margin-left: 1em; "><a onclick="loadPage('$nextPage')">&#62;</a></li>
-	      <li class="cycle" style="margin-left: 1em; "><a onclick="loadPage('$totalNumPages')">&#62;&#62</a></li>
+	      <li class="cycle"><a onclick="loadPage('$totalNumPages')"><span class="outer">&#62;&#62;</span></a></li>
             </if>
 	  </ul>
        </if>
