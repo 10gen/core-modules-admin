@@ -22,7 +22,9 @@ if ( sectionName.endsWith("/") && sectionName.length > 1 )
     sectionName += "index";
 
 if ( sectionName == "" || sectionName.match( /^index/ ) ){
-    sectionName = user.adminSection;
+    sectionName = null;
+    if(user)
+        sectionName = user.adminSection;
     if(sectionName == null)
         sectionName = "welcome";
 }
