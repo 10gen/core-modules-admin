@@ -304,7 +304,7 @@ else {
 
     var objcount = 0;
     function printObj(cursor, field) {
-        if(!cursor || !cursor[field]) return;
+        if(!cursor || !cursor[field]) return "";
         var text = "";
 
         if(cursor[field] == null || typeof cursor[field] == "native" || typeof cursor[field] == "function") {
