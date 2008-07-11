@@ -87,7 +87,7 @@ if ( allowModule ){
             continue;
         }
         // this entry indicates the parent for these links
-        tree[mod] = { $: mod };
+        tree[mod] = { $: appNav.root || mod };
         for ( var i in appTree ){
             if(appTree[i].target != false)
                 tree[mod][appTree[i].target] = appTree[i].pretty;

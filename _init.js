@@ -15,6 +15,10 @@ admin.getAppNav = function(key){
         if(core.modules[key] && core.modules[key].admin && core.modules[key].admin.leftNav)
                 appNav = core.modules[key].admin.leftNav;
     }
+    else if(local.modules.isLoaded(key)){
+        if(local.modules[key] && local.modules[key].admin && local.modules[key].admin.leftNav)
+            appNav = local.modules[key].admin.leftNav;
+    }
     else if(core[key]){
         if(core[key].admin && core[key].admin.leftNav) appNav = core[key].admin.leftNav;
     }
