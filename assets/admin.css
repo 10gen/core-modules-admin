@@ -857,10 +857,6 @@ div.onecolumn {
 	width:100%;
 }
 
-tr.white-main td {
-    white-space: nowrap;
-}
-
 td div.nofield {
     text-align: center;
     background: #CCCCCC;
