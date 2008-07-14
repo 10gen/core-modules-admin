@@ -3,6 +3,11 @@ var opts = arguments[0];
 var user = opts.user;
 var session = opts.session;
 %>
+// Nicer tojson serializer for dojo (for clientside)
+Date.prototype.__json__ = function(){
+    return "new Date( '" + this.toString() + "' ) ";
+};
+
 // FIXME: this screws up the prompts shown in the transcript; they could have
 // been different in the past
 var userPrompt = <%= tojson((user.shell ? user.shell.prompt : "") || "js>") %>;
