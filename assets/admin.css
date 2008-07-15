@@ -23,7 +23,7 @@ h1 {
 	margin:0;
 	padding:0;
 	font-size: 148%;
-	color: #333333;
+	color: #333;
 	font-weight: normal;
 }
 
@@ -45,7 +45,7 @@ h4 {
 p, .help {
 	padding: 0em 0px 1em 0px;
 	line-height: 1.5em;
-	color: #333333;
+	color: #333;
 }
 
 hr {
@@ -59,7 +59,7 @@ hr {
 
 td {
     padding:0;
-	color: #333333;
+	color: #333;
 }
 
 div.hr hr {
@@ -204,7 +204,7 @@ td.maincontent div.links-table {
 	padding-top: .5em;
 	text-align: right;
 	font-size: 12px;
-	color: #dddddd;
+	color: #ddd;
 }
 
 td.maincontent div.links-table a, td.maincontent div.links-table a:visited {
@@ -257,7 +257,7 @@ td.maincontent ul.small-text {
 td.maincontent .shell {
 	width: 100%;
 	height: 8em;
-	border: 1px solid #cccccc;
+	border: 1px solid #ccc;
 	padding: .2em;
 	line-height: 1.3em;
 }
@@ -293,9 +293,12 @@ input.text {
 	padding: 1px;
 }
 
+input[disabled]{
+	background-color: #ddd};
+
 input.text, textarea {
   	border: 1px solid;
-  	border-color: #999999 #cccccc #cccccc #999999;
+  	border-color: #999 #ccc #ccc #999;
 }
 
 td.maincontent tr.search-table td.right {
@@ -404,7 +407,7 @@ td.maincontent tr.white-main th, td.maincontent tr.white-main td {
 }
 
 td.maincontent tr.white-main th {
-        color: #333333;
+        color: #333;
         font-weight: bold;
 }
 
@@ -425,7 +428,7 @@ tr.white-main th.center, tr.white-main td.center {
 td.maincontent tr.white-main td {
 	padding: .4em 1em .1em 0;
 	vertical-align: top;
-	border-top:1px solid #dddddd;
+	border-top:1px solid #ddd;
 	line-height: 1.5em;
 	font-size: 11px;
 }
@@ -460,7 +463,7 @@ tr.conflict a:hover {
 tr.white-main th a, tr.white-main th a:visited {
 	line-height: 2em;
 	font-size: 11px;
-	color: #333333;
+	color: #333;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -468,7 +471,7 @@ tr.white-main th a, tr.white-main th a:visited {
 tr.white-main th a, tr.white-main th a:visited {
 	line-height: 2em;
 	font-size: 11px;
-	color: #333333;
+	color: #333;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -499,7 +502,7 @@ tr.white-main th a:hover {
 }
 
 tr.white-main th a#active {
-	color: #333333;
+	color: #333;
 }
 tr.white-main th a {
         cursor: pointer;
@@ -548,13 +551,13 @@ td.maincontent tr.white-main td.glm-info li.title {
 
 td.maincontent tr.white-main td.glm-top {
 	border-top: 0;
-	border-bottom: 1px solid #cccccc;
+	border-bottom: 1px solid #ccc;
 	font-size: 12px;
 }
 
 td.maincontent tr.white-main td.sec {
 	padding-bottom: 2em;
-	border-bottom: 1px solid #cccccc;
+	border-bottom: 1px solid #ccc;
 	font-size: 12px;
 }
 
@@ -620,7 +623,7 @@ td.maincontent div.links-table {
 	padding-top: .5em;
 	text-align: right;
 	font-size: 12px;
-	color: #dddddd;
+	color: #ddd;
 }
 
 td.maincontent div.links-table a, td.maincontent div.links-table a:visited {
@@ -672,7 +675,7 @@ td.maincontent div.links-table a:hover.external {
 #paging ul li.active {
 	padding: 5px 6px 2px 6px;
 	font-size: 12px;
-	color: #ffffff;
+	color: #fff;
 	background:url(img/paging_circle_active_on_tan.gif) no-repeat left bottom;
         cursor: default;
 }
@@ -680,7 +683,7 @@ td.maincontent div.links-table a:hover.external {
 #paging ul li.modactive {
 	padding: 5px 3px 2px 2px;
 	font-size: 12px;
-	color: #ffffff;
+	color: #fff;
 	background:url(img/paging_circle_active_on_tan.gif) no-repeat left bottom;
 }
 
@@ -689,7 +692,7 @@ td.maincontent div.links-table a:hover.external {
 	font-size: 12px;
 	text-align: center;
 	text-decoration: none;
-	color: #ffffff;
+	color: #fff;
 	background:url(img/paging_circle_on_tan.gif) no-repeat left bottom;
 }
 
@@ -697,7 +700,7 @@ td.maincontent div.links-table a:hover.external {
 	padding: 5px 3px;
 	font-size: 12px;
 	text-align: center;
-	color: #999999;
+	color: #999;
 	background-image:none;
 }
 
@@ -725,7 +728,7 @@ td.maincontent div.links-table a:hover.external {
 
 div.data-display {  
 	margin: 1em 0;
-	border:1px solid #DDDDDD;
+	border:1px solid #ddd;
 	padding:20px 10px;
 }
 
@@ -764,14 +767,14 @@ form.edit textarea {
 
 form.edit fieldset, div.fieldset {
 	width: auto;
-  	border: 1px solid #dddddd;
+  	border: 1px solid #ddd;
   	padding: 20px 10px;        /* padding in fieldset support spotty in IE */
   	margin: 0;
   	/ * clear: both; note that this clear causes inputs to break to left in ie5.x mac, commented out */
 }
 
 form.edit input.text {
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   width: 200px;
 }
 
@@ -859,10 +862,10 @@ div.onecolumn {
 
 td div.nofield {
     text-align: center;
-    background: #CCCCCC;
+    background: #ccc;
 }
 td div.nullfield {
-    color: #CCCCCC;
+    color: #ccc;
     font-style: italic;
 }
 
