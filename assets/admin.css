@@ -794,6 +794,13 @@ form.edit input, form.edit textarea, form.edit select {
                               label aligns textarea better in IE */
 }
 
+form.edit input.checkbox {
+	margin: 2px 0 0 0;
+	padding: 0;
+	position: relative;
+	top: 2px;
+}
+
 form.edit textarea { overflow: auto; }
 
 form.edit .required{font-weight:bold;} /* uses class instead of div, more efficient */

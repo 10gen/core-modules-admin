@@ -1,4 +1,3 @@
-
 <h1 style="margin:0;">
   <nobr>Database Profile</nobr>
 </h1>
@@ -25,14 +24,14 @@
 
 <p class="abstract underline"><b>Search:</b></p>
 <form action="#" method="" name="" class="edit register">
-  <label for="timefilter"><nobr><input type="checkbox" name="timefilter" id="timefilter" onclick="toggleEnableText('time', 'YYYY-MM-DD HH:MM:SS')"> Timestamp filter between </nobr></label>
+  <label style="margin-top: 0; " for="timefilter"><nobr><input type="checkbox" name="timefilter" id="timefilter" onclick="toggleEnableText('time', 'YYYY-MM-DD HH:MM:SS')"> Timestamp filter between </nobr></label>
   <input class="text" type="text" disabled onclick="clearTextBox('time_from', 'YYYY-MM-DD HH:MM:SS')" onblur="resetTextBox('time_from', 'YYYY-MM-DD HH:MM:SS')" id="time_from" name="time_from" value="YYYY-MM-DD HH:MM:SS" /> and <input class="text" style="margin-left: 0; " type="text" disabled name="time_to" value="YYYY-MM-DD HH:MM:SS" onclick="clearTextBox('time_to', 'YYYY-MM-DD HH:MM:SS')" onblur="resetTextBox('time_to', 'YYYY-MM-DD HH:MM:SS')" id="time_to" /> <br />
-  <label for="msfilter"><input type="checkbox" name="msfilter" id="msfilter" onclick="toggleEnableText('ms', '0', '999999')"> Millisecond filter between </label>
+  <label style="margin-top: 0; "  for="msfilter"><input type="checkbox" name="msfilter" id="msfilter" onclick="toggleEnableText('ms', '0', '999999')"> Millisecond filter between </label>
   <input class="text" type="text" disabled name="ms_from" onclick="clearTextBox('ms_from', '0')" onblur="resetTextBox('ms_from', '0')" id="ms_from" value="0" /> and <input class="text" style="margin-left: 0;" type="text" disabled name="ms_to"  onclick="clearTextBox('ms_to', '999999')" onblur="resetTextBox('ms_to', '999999')" id="ms_to" value="999999" /> <br />
-  <label for="refilter"><input type="checkbox" name="refilter" id="refilter" onclick="toggleEnableText('re', '')"> Information RegExp filter </label>
-  <input class="text" type="text" name="re" id="re" disabled /> <br />
+  <label style="margin-top: 0; "  for="refilter"><input type="checkbox" name="refilter" id="refilter" onclick="toggleEnableText('re', '')"> Information RegExp filter </label>
+  <input class="text" type="text" name="re" id="re" disabled /> <br /><br />
   <label></label>
-  <img src="/admin/assets/img/button_search_on_white.gif" onclick="doSearch()" alt="Search"><img src="/admin/assets/img/button_refresh_on_white.gif" onclick="refreshSearch()" alt="Refresh"> <br />
+  <span style="padding-left: 8px; "><img src="/admin/assets/img/button_search_on_white.gif" onclick="doSearch()" alt="Search"> <img src="/admin/assets/img/button_refresh_on_white.gif" onclick="refreshSearch()" alt="Refresh"></span>
 </form>
 
 <br />
