@@ -1,6 +1,6 @@
 admin.MAX_HISTORY_LENGTH = 40;
 
-core.db.db();
+core.db.dbutil();
 
 admin.data.ShellSession = function(user){
     this.modeHistory_bash = new admin.data.ShellSession.History();
