@@ -65,6 +65,7 @@ function refreshTable(passData){
         passData = "";
     ajax("ns=admin._files&action=filessearch&currentPage="+currentPage+"&sortcol=uploadDate&sortdir=-1&"+passData+lastSearch, "table", function(response) {
         document.getElementById("myCollection").innerHTML = response;
+        document.getElementById("loadingMsg").style.display = "none";
     });
 }
 
@@ -85,6 +86,7 @@ function getSearchArgs() {
 
 function deleteFile(id, name) {
     var handleYes = function() {
+        document.getElementById("loadingMsg").style.display = "block";
         ajax("action=deletefile&_id="+id, "editDb", function(r) {
             refreshTable();
         });
@@ -134,7 +136,7 @@ else if (theFile)
 
 </script>
 
-
+<div id="loadingMsg" style="display: none; position: absolute; background: white; z-index: 50;"><h1>Loading...</h1></div>
 <div id="myCollection">
 <%
 
