@@ -80,7 +80,8 @@ var lastSearch = "";
 <% if(!top) { %>
 function doCommand(cmd) {
     ajax("ns=<%= request.ns %>&action=eval&cmd="+cmd, "table", function(response) {
-        document.getElementById("myCollection").innerHTML = response;
+        if(response.trim() != "")
+            document.getElementById("myCollection").innerHTML = response;
     });
 }
 <% } %>

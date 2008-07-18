@@ -2,7 +2,6 @@
 core.ext.pluck();
 core.io.marshal();
 core.io.encode.json();
-core.db.db();
 core.content.html();
 core.content.regexp();
 
@@ -28,7 +27,7 @@ if(request.action == "validation") {
         return;
     }
 
-    var x = validate(request.ns);
+    var x = db[request.ns].validate();
     print(x.result && x.result ? x.result : x.errmsg);
     return;
 }
@@ -94,7 +93,7 @@ if(request.action == "searchprofile") {
         searchObj.info = new RegExp("^"+request.record_type+".*");
     }
 
-    rows = db.system.profile.find( searchObj ).toArray();
+    rows = db.system.profile.find( searchObj ).limit(100).toArray();
     top = false;
 }
 // dbview
@@ -182,7 +181,7 @@ if(top) {
 }
 else {
     if(request.ns)
-        var numrows = count(request.ns.substring(request.ns.indexOf(".")+1), searchobj);
+        var numrows = db[request.ns.substring(request.ns.indexOf(".")+1)].count(searchobj);
     else
         numrows = rows.length;
     totalNumPages = Math.floor((numrows - 1) / rowsPerPage) + 1;
@@ -207,9 +206,6 @@ if(top) {
     }
     rows = urow;
 }
-/*else {
-    rows = rows.splice(start, rowsPerPage);
-}*/
 
 
 var dbTable = { rows: [] };

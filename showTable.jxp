@@ -2,7 +2,6 @@
 core.ext.pluck();
 core.io.marshal();
 core.io.encode.json();
-core.db.db();
 core.content.html();
 
 var collection;

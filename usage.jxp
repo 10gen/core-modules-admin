@@ -1,6 +1,5 @@
 <%
 
-core.db.db();
 core.ui.chart.datetime();
 
 function doRound( date , t ){

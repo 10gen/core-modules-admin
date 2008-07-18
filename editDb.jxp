@@ -1,8 +1,5 @@
 <%
 
-core.db.db();
-
-
 if(request.action == "delete") {
     var collection = db[request.ns.substring( request.ns.indexOf('.')+1 )]; // remove db name from the str
     if(request.id)
@@ -38,31 +35,13 @@ if ( request.action == "deletefile" ){
         db._files.remove({_id: file._id});
     }
 }
-/*else if(request.action == "createidx") {
-    collection = db[request.ns.substring( request.ns.indexOf('.')+1 )];
-   log(db[request.ns.substring( request.ns.indexOf('.')+1 )]);
-    idxes = request.idx.split(",");
-    var idxObj = {};
-    for(var i=0; i<idxes.length; i++) {
-        idxObj[idxes[i]] = 1;
-    }
-    log(tojson(idxObj));
-    collection.ensureIndex(idxObj);
-}*/
-else if(request.action == "create") {
-    var opts = {};
-    if(request.fixed) opts.capped = true;
-    if(request.max) opts.max = parseInt(request.max);
-    if(request.size) opts.size = parseInt(request.size);
-    createCollection(request.tablename, opts);
-}
 else if(request.action == "drop") {
-    drop(request.ns);
+    db[request.ns.substring( request.ns.indexOf(".")+1)].drop();
 }
 else if(request.action == "dropI") {
     var idx = request.idx.split(",");
     for(var i in idx) {
-        deleteIndex(request.ns.substring( request.ns.indexOf('.')+1), idx[i]);
+        db[request.ns.substring( request.ns.indexOf('.')+1)].dropIndex(idx[i]);
     }
 }
 else if(request.action == "edit") {

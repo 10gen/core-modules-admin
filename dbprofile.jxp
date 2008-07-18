@@ -1,7 +1,6 @@
 <%
 head.addCSS("NOCDN/admin/assets/admin.css");
 
-core.db.db();
 core.content.table();
 
 var rowsPerPage = 100;
@@ -10,7 +9,7 @@ if(user.permissions["0"] == "admin") {
     if( request.set != null ) {
         print("Setting profiling level to " + request.set);
         print(" ");
-        print(tojson(setDbProfilingLevel(parseInt(request.set))));
+        print(tojson(db.setProfilingLevel(parseInt(request.set))));
         print("<p>");
     }
     %>
@@ -66,8 +65,7 @@ function loadPage(pagenum) {
 <%
 // why would a non-admin user be on the admin page?
 if(user.permissions["0"] == "admin") {
-    core.db.db();
-    var level = getDbProfilingLevel();
+    var level = db.getProfilingLevel();
     level = (level == -1) ? 0 : level;
     print('document.getElementById("set").options['+ level +'].selected = true');
 }
