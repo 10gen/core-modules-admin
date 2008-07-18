@@ -1,4 +1,3 @@
-<p>
 <%
 head.addCSS("NOCDN/admin/assets/admin.css");
 
