@@ -56,6 +56,7 @@ Object.extend(admin.data.Bash.prototype, {
         var t = this;
         var oldpwd = this._pwd;
         dir.split('/').forEach(function(z){
+            log.admin.data.bash.debug("cding to component " + z);
             if(! z) return;
 
             if(z == '..'){
@@ -75,10 +76,16 @@ Object.extend(admin.data.Bash.prototype, {
             }
         });
         var err;
-        if(!File.open(this._pwd).exists()){
+        var pwd;
+        if(this._pwd.startsWith('/'))
+            pwd = this._pwd.substring(1);
+        else
+            pwd = this._pwd;
+        var f = File.open(pwd);
+        if(!f.exists()){
             err = "cd: The path " + dir + " does not exist.";
         }
-        else if(!File.open(this._pwd).isDirectory()){
+        else if(!f.isDirectory()){
             err = "cd: The path " + dir + " is not a directory.";
         }
 
