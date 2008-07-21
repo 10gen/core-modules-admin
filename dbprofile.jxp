@@ -1,18 +1,29 @@
 <% /**
 *      Copyright (C) 2008 10gen Inc.
-*  
+*
 *    Licensed under the Apache License, Version 2.0 (the "License");
 *    you may not use this file except in compliance with the License.
 *    You may obtain a copy of the License at
-*  
+*
 *       http://www.apache.org/licenses/LICENSE-2.0
-*  
+*
 *    Unless required by applicable law or agreed to in writing, software
 *    distributed under the License is distributed on an "AS IS" BASIS,
 *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 *    See the License for the specific language governing permissions and
 *    limitations under the License.
-*/ %>
+*/
+
+if(user.permissions["0"] == "admin") {
+    if( request.set != null ) {
+        db.setProfilingLevel(parseInt(request.set));
+        response.sendRedirectTemporary("dbprofile");
+        return;
+    }
+}
+print("Profiling level set to " + db.getProfilingLevel());
+print(" ");
+%>
 
 <%
 head.addCSS("NOCDN/admin/assets/admin.css");
@@ -21,19 +32,8 @@ core.content.table();
 
 var rowsPerPage = 100;
 
-if(user.permissions["0"] == "admin") {
-    if( request.set != null ) {
-        print("Setting profiling level to " + request.set);
-        print(" ");
-        print(tojson(db.setProfilingLevel(parseInt(request.set))));
-        print("<p>");
-    }
-    %>
-    <%
-}
-%>
 
-<% adminRoot.pieces.dbprofile(); %>
+adminRoot.pieces.dbprofile(); %>
 <div id="myCollection">
 <%
 request.action = "searchprofile";
