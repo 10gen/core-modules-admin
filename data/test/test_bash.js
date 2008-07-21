@@ -14,7 +14,7 @@
 *    limitations under the License.
 */
 
-adminRoot.data.bash();
+core.modules.admin.data.bash();
 core.core.file();
 
 sysexec("rm -r testbash");
@@ -114,7 +114,7 @@ var foo = sh.date(['-d', '2008-04-20', '"+%Y %m %M"']);
 assert(foo.out == "2008 04 00\n");
 assert(foo.err == "");
 
-sh.cd(['testbash']);
+var foo = sh.cd(['testbash']);
 
 var foo = sh.ls();
 assert(foo.out == 'file3\nlongfile\n');
@@ -130,7 +130,7 @@ assert(foo.err == "");
 
 fileCorrect('file3', 'testbash/file1');
 
-assertThrows(function(){ sh.cd(['../..']); });
+silent(sh.cd(['../..']));
 
 sysexec("mkdir -p testbash/subdir");
 

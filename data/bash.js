@@ -56,10 +56,13 @@ Object.extend(admin.data.Bash.prototype, {
         var t = this;
         var oldpwd = this._pwd;
         dir.split('/').forEach(function(z){
+            log.admin.data.bash.debug("cding to component " + z);
             if(! z) return;
 
             if(z == '..'){
                 log.admin.data.bash.debug("old pwd " + t._pwd);
+                // FIXME: Looks like it leaves, but it just goes to the next
+                // path component
                 if(t._pwd == "/")
                     return {out :"", err:""};
                 else {
@@ -74,12 +77,17 @@ Object.extend(admin.data.Bash.prototype, {
                 t._pwd += z;
             }
         });
-        // This sucks, but I apparently need to reload this every command?
         var err;
-        if(!File.open(this._pwd).exists()){
+        var pwd;
+        if(this._pwd.startsWith('/'))
+            pwd = '.'+this._pwd;
+        else
+            pwd = this._pwd;
+        var f = File.open(pwd);
+        if(!f.exists()){
             err = "cd: The path " + dir + " does not exist.";
         }
-        else if(!File.open(this._pwd).isDirectory()){
+        else if(!f.isDirectory()){
             err = "cd: The path " + dir + " is not a directory.";
         }
 
