@@ -130,7 +130,7 @@ assert(foo.err == "");
 
 fileCorrect('file3', 'testbash/file1');
 
-assertThrows(function(){ sh.cd(['../..']); });
+silent(sh.cd(['../..']));
 
 sysexec("mkdir -p testbash/subdir");
 

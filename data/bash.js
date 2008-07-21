@@ -61,6 +61,8 @@ Object.extend(admin.data.Bash.prototype, {
 
             if(z == '..'){
                 log.admin.data.bash.debug("old pwd " + t._pwd);
+                // FIXME: Looks like it leaves, but it just goes to the next
+                // path component
                 if(t._pwd == "/")
                     return {out :"", err:""};
                 else {
@@ -78,7 +80,7 @@ Object.extend(admin.data.Bash.prototype, {
         var err;
         var pwd;
         if(this._pwd.startsWith('/'))
-            pwd = this._pwd.substring(1);
+            pwd = '.'+this._pwd;
         else
             pwd = this._pwd;
         var f = File.open(pwd);
