@@ -526,6 +526,9 @@ function populateTree(treenode, obj, name) {
         else if(typeof obj[field] == "number") {
             s += obj[field];
         }
+        else if(obj[field] == null) {
+            s += "null";
+        }
         else if(typeof obj[field] == "object") {
             s += "Object";
         }
