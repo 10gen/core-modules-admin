@@ -149,6 +149,59 @@ finally{
     print = oldprint;
 }
 
+// Port ed.db.Shell#displayCursor to JS because there's no way to create
+// a printf method and expose it to Java.
+
+// Crappy instanceof check for something that isn't exposed to JS
+if(res && new String(res.getClass()) == "class ed.db.DBCursor"){
+    log("Got a thing");
+    var n = res.count();
+    var all = [];
+    var fieldSize = {};
+    var _string = function(o){
+        if(o == null) return "null";
+        if(o instanceof Date) return new String(o.strftime("%D %T"));
+        var s = o.toString();
+        if(s.length > 30) return s.substring( 0, 27 ) + '...';
+        return s;
+    };
+
+    for(var i = 0; i < 30 && res.hasNext(); i++){
+        var obj = res.next();
+        all.push(obj);
+        for(var key in obj){
+            if ( ['_save', '_update', '_ns'].contains(key) ) continue;
+
+            var blah = obj[key];
+            var old = fieldSize[key];
+            if ( old == null ) old = key.length;
+
+            fieldSize[key] = Math.max( old, _string(blah).length);
+        }
+    }
+
+    log("OK: " + all.length);
+    if(all.length != 0) {
+        var width = function(n, s){
+            s = _string(s);
+            while(n > s.length){
+                s = ' ' + s;
+            }
+            return s;
+        }
+        buffer(Object.keys(fieldSize).map(function(key){
+            return width(fieldSize[key], key);
+        }).join(" | "));
+        buffer("\n");
+        all.forEach(function(obj){
+            buffer(Object.keys(fieldSize).map(function(key){
+                return width(fieldSize[key], obj[key]);
+            }).join(" | ") + "\n");
+        });
+        res = "[cursor to " + n + "objects]";
+    }
+
+}
 var garbage = tojson(res);
 garbage = garbage.replace(/ObjectId.*\((.+?)\)/, '$1');
 garbage = garbage.replace(/new Date.*\((.+?)\)/, '$1');
