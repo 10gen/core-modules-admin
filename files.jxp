@@ -143,8 +143,28 @@ function uploadFileError() {
 <%
 
 var theFile = request.getFile( "theFile" );
-if ( theFile && theFile.filename != "")
-    db._files.save( theFile );
+if ( theFile && theFile.filename != "") {
+    // check for duplicate filenames
+    var exists = db._files.findOne({filename : theFile.filename});
+    if(!exists)
+        db._files.save( theFile );
+    else {
+        %>
+        var simpledialog = new YAHOO.widget.SimpleDialog("uploadFileDlg",
+            { width: "300px",
+            fixedcenter: true,
+            draggable: true,
+            visible: false,
+            close: true,
+            text: "The file you selected could not be uploaded as a file with the same name already exists.",
+            buttons: [ { text: "OK", handler:handleNo } ]
+            } );
+        simpledialog.setHeader("Invalid File");
+        simpledialog.render("dlgbox");
+        simpledialog.show();
+        <%
+    }
+}
 else if (theFile)
     print("uploadFileError();");
 
