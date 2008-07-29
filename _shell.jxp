@@ -156,7 +156,8 @@ finally{
 // Crappy instanceof check for something that isn't exposed to JS
 if(res && new String(res.getClass()) == "class ed.db.DBCursor"){
     log("Got a thing");
-    var n = res.count();
+    newres = res;
+    var n = newres.count();
     var all = [];
     var fieldSize = {};
     var _string = function(o){
@@ -167,8 +168,8 @@ if(res && new String(res.getClass()) == "class ed.db.DBCursor"){
         return s;
     };
 
-    for(var i = 0; i < 30 && res.hasNext(); i++){
-        var obj = res.next();
+    for(var i = 0; i < 30 && newres.hasNext(); i++){
+        var obj = newres.next();
         all.push(obj);
         for(var key in obj){
             if ( ['_save', '_update', '_ns'].contains(key) ) continue;
@@ -201,7 +202,9 @@ if(res && new String(res.getClass()) == "class ed.db.DBCursor"){
         });
         res = "[cursor to " + n + "objects]";
     }
-
+    else {
+        res = "[cursor to zero objects]";
+    }
 }
 var garbage = tojson(res);
 garbage = garbage.replace(/ObjectId.*\((.+?)\)/, '$1');
