@@ -1,4 +1,5 @@
 <%
+response.setHeader('Content-Type', "application/json");
 JSON = core.content.json();
 var shellId = request.id;
 if ( ! shellId ){
