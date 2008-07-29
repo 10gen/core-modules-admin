@@ -1,12 +1,5 @@
-// How the menu looks, and where the links go
-// This currently assumes order is preserved in JS objects; bad, naughty
-// Structure is: key: 'target' or
-// key: { 'target': 'PrettyName', 'target': 'Pretty Name'}
-// If tree[key] is a string, the link is a real link that takes you to target
-// If tree[key] is an object, then it's a submenu that expands to links
-// <a href="/admin/target">PrettyName</a>
-// If tree[key].$, then the link instead goes to
-// <a href="/admin/<%= tree[key].$ %>/target instead
+// sectiontree.js
+
 /**
 *      Copyright (C) 2008 10gen Inc.
 *
@@ -22,6 +15,16 @@
 *    See the License for the specific language governing permissions and
 *    limitations under the License.
 */
+
+// How the menu looks, and where the links go
+// This currently assumes order is preserved in JS objects; bad, naughty
+// Structure is: key: 'target' or
+// key: { 'target': 'PrettyName', 'target': 'Pretty Name'}
+// If tree[key] is a string, the link is a real link that takes you to target
+// If tree[key] is an object, then it's a submenu that expands to links
+// <a href="/admin/target">PrettyName</a>
+// If tree[key].$, then the link instead goes to
+// <a href="/admin/<%= tree[key].$ %>/target instead
 
 core.ext.getlist();
 var tree = {
