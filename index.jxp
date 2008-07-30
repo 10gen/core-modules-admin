@@ -18,6 +18,8 @@
 /* everyone is allowed to read the source code in corejs and samples. */
     var _openAccess = false;
 
+var mylog = log.admin.index.debug;
+
 // AJAX functions that do not require headers/footers
 var ajaxFunctions = [ "showTable", "table", "editCron", "blog/autosave", "doc" ];
 
@@ -44,6 +46,9 @@ if ( sectionName == "" || sectionName.match( /^index/ ) ){
     if(sectionName == null)
         sectionName = "welcome";
 }
+
+mylog( "sectionName [" + sectionName + "]" );
+
 var allowed = _openAccess;
 
 /*
@@ -100,6 +105,18 @@ if ( sectionName.match( /^my\// ) && jxp.admin ){
     if ( section && jxp.admin.pieces ){
         sectionHeader = jxp.admin.pieces.header;
         sectionFooter = jxp.admin.pieces.footer;
+    }
+}
+
+// if there is a file /admin/cloud.jxp, and a request goes to /admin/cloud/asd should route cloud.jxp
+if ( section == null && sectionName.match( /\// ) ){
+    var idx = sectionName.indexOf( "/" );
+    var moduleName = sectionName.substring( 0 , idx );
+    if ( adminRoot[ moduleName ] ){
+        request.tab = sectionName.substring( idx + 1 );
+        sectionName = moduleName;
+        section = adminRoot[ moduleName];
+        mylog( " creating tab [" + request.tab + "]" );
     }
 }
 
