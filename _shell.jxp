@@ -11,16 +11,16 @@ var isShellCommand = function(cmd) {
 	return (new admin.data.Bash()).getCmdArray().contains(cmd);
 }
 
-var gg = scope.globals.getParent();
-var holder = gg._adminScopeHolder;
+var gg = siteScope;
+var adminG = scope.globals.getParent();
+var holder = adminG._adminScopeHolder;
 if ( ! holder ){
     holder = {};
-    var s = gg.getTLPreferred();
-    gg.setTLPreferred( gg );
-    gg._adminScopeHolder = holder;
-    gg.setTLPreferred( s );
+    var s = adminG.getTLPreferred();
+    adminG.setTLPreferred( adminG );
+    adminG._adminScopeHolder = holder;
+    adminG.setTLPreferred( s );
 }
-
 
 var theScope = holder[ shellId ];
 var populate = function(theScope){
