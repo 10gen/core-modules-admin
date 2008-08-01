@@ -43,3 +43,5 @@ admin.getRoles = function(url){
     }
     return allRoles;
 };
+
+globalHead.add( "<link rel=\"shortcut icon\" href=\"http://static.10gen.com/www.10gen.com/assets/images/favicon.ico?lm=1216647467000\">" );
