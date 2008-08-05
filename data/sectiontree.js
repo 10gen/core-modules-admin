@@ -95,24 +95,32 @@ var reverse = {
 // Expected structure is: list of {pretty: 'Str', target: 'pagename' || false}
 // false means it's the toplevel element and don't expand it
 // If there's no map at all, just include a link to go to /admin/modname/index
+
+function doForwardMapping( mod , appNav ){
+    var appTree = appNav.tree;
+    if(appTree.length == 0){
+        tree[mod] = "/admin/" + mod + "/index";
+        return;
+    }
+    // this entry indicates the parent for these links
+    tree[mod] = { $: appNav.root || mod };
+    for ( var i in appTree ){
+        if(appTree[i].target != false)
+            tree[mod][appTree[i].target] = appTree[i].pretty;
+    }    
+}
+
 if ( allowModule ){
     tree['Applications'] = false;
 
     for ( var mod in allowModule ){
         var appNav = admin.getAppNav(mod);
-        var appTree = appNav.tree;
-        if(appTree.length == 0){
-            tree[mod] = "/admin/" + mod + "/index";
-            continue;
-        }
-        // this entry indicates the parent for these links
-        tree[mod] = { $: appNav.root || mod };
-        for ( var i in appTree ){
-            if(appTree[i].target != false)
-                tree[mod][appTree[i].target] = appTree[i].pretty;
-        }
+	doForwardMapping( mod , appNav );
     }
 }
+
+if ( local.admin && local.admin.leftNav )
+    doForwardMapping( "my" , local.admin.leftNav() );
 
 // Build an appropriate reverse map
 // First, we build a reverse map from the forward map: a page modname/target
@@ -122,25 +130,32 @@ if ( allowModule ){
 // is merged into the reverse map. appReverse is expected to be:
 // 'orig_page': 'acts_like_page'
 // meaning: map orig_page to the same list as acts_like_page.
-for(var key in allowModule){
-    var appNav = admin.getAppNav(key);
+
+function doReverseMapping( mod , appNav ){
     var appTree = appNav.tree;
     var appReverse = appNav.reverse;
 
     for(var i in appTree){
         var pair = appTree[i];
-        var name = key;
+        var name = mod;
         if(pair.target != false)
             name += '/'+pair.target;
-        reverse[name] = [key, pair.target];
+        reverse[name] = [mod, pair.target];
     }
 
     for(var page in appReverse){
         var actslike = appReverse[page];
-        reverse[key+'/'+page] = reverse[key+'/'+actslike];
+        reverse[mod+'/'+page] = reverse[mod+'/'+actslike];
     }
-
 }
+
+for(var key in allowModule){
+    var appNav = admin.getAppNav(key);
+    doReverseMapping( key , appNav );
+}
+
+if ( local.admin && local.admin.leftNav )
+    doReverseMapping( "my" , local.admin.leftNav() );
 
 // Remove sections that user can't access
 if(Ext.getlist(allowModule, 'admin', 'permissions') && ! user.isAdmin()){
