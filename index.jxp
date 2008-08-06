@@ -75,6 +75,7 @@ if ( ! allowed ){
 assert( adminRoot );
 var sectionMap = adminRoot.data.sectiontree().reverse;
 
+
 var sectionList = sectionMap[sectionName];
 
 // map main sections to default pages
@@ -95,7 +96,7 @@ if ( sectionName.match( /^my\// ) && local.admin ){
         var module = stripped.replace( /^modules\// , '' );
         var pair = module.split( '/' );
         // Check that this module is actually installed on the site
-        if(version[ pair[ 0 ] ]){
+        if(siteScope.version && siteScope.version[ pair[ 0 ] ]){
             section = local.modules[ pair[ 0 ] ].admin[ pair[ 1 ] ];
         }
     }

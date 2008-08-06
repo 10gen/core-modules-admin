@@ -110,10 +110,10 @@ function doForwardMapping( mod , appNav ){
     }    
 }
 
-if ( allowModule ){
+if ( siteScope.allowModule ){
     tree['Applications'] = false;
 
-    for ( var mod in allowModule ){
+    for ( var mod in siteScope.allowModule ){
         var appNav = admin.getAppNav(mod);
 	doForwardMapping( mod , appNav );
     }
