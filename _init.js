@@ -1,3 +1,14 @@
+if(! allowModule && siteScope){
+    allowModule = siteScope.allowModule;
+}
+
+if(! version && siteScope){
+    version = siteScope.version;
+}
+
+if(! routes && siteScope){
+    routes = siteScope.routes;
+}
 
 adminRoot = core.modules.admin;
 assert( adminRoot );

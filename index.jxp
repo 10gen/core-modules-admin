@@ -23,6 +23,9 @@ if(! version && siteScope){
     version = siteScope.version;
 }
 
+if(! routes && siteScope){
+    routes = siteScope.routes;
+}
 
 /* everyone is allowed to read the source code in corejs and samples. */
     var _openAccess = false;
