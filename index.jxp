@@ -29,12 +29,8 @@ if(siteScope){
     routes = siteScope.routes;
   }
 
-  log(tojson(Object.keys(siteScope)));
-  log("Shit " + siteScope.core);
   coreModules = siteScope.core.modules;
-  log("Fuck " + siteScope.local);
   localModules = siteScope.local.modules;
-  log("Cunts");
 }
 else {
   coreModules = core.modules;
