@@ -15,6 +15,18 @@
 */ %>
 
 <%
+if(! allowModule && siteScope){
+    allowModule = siteScope.allowModule;
+}
+
+if(! version && siteScope){
+    version = siteScope.version;
+}
+
+if(! routes && siteScope){
+    routes = siteScope.routes;
+}
+
 /* everyone is allowed to read the source code in corejs and samples. */
     var _openAccess = false;
 
@@ -75,7 +87,6 @@ if ( ! allowed ){
 assert( adminRoot );
 var sectionMap = adminRoot.data.sectiontree().reverse;
 
-
 var sectionList = sectionMap[sectionName];
 
 // map main sections to default pages
@@ -96,7 +107,7 @@ if ( sectionName.match( /^my\// ) && local.admin ){
         var module = stripped.replace( /^modules\// , '' );
         var pair = module.split( '/' );
         // Check that this module is actually installed on the site
-        if(siteScope.version && siteScope.version[ pair[ 0 ] ]){
+        if(version[ pair[ 0 ] ]){
             section = local.modules[ pair[ 0 ] ].admin[ pair[ 1 ] ];
         }
     }
