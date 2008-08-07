@@ -15,16 +15,30 @@
 */ %>
 
 <%
-if(! allowModule && siteScope){
+
+if(siteScope){
+  if(! allowModule){
     allowModule = siteScope.allowModule;
-}
+  }
 
-if(! version && siteScope){
+  if(! version){
     version = siteScope.version;
-}
+  }
 
-if(! routes && siteScope){
+  if(! routes){
     routes = siteScope.routes;
+  }
+
+  log(tojson(Object.keys(siteScope)));
+  log("Shit " + siteScope.core);
+  coreModules = siteScope.core.modules;
+  log("Fuck " + siteScope.local);
+  localModules = siteScope.local.modules;
+  log("Cunts");
+}
+else {
+  coreModules = core.modules;
+  localModules = local.modules;
 }
 
 /* everyone is allowed to read the source code in corejs and samples. */

@@ -1,15 +1,3 @@
-if(! allowModule && siteScope){
-    allowModule = siteScope.allowModule;
-}
-
-if(! version && siteScope){
-    version = siteScope.version;
-}
-
-if(! routes && siteScope){
-    routes = siteScope.routes;
-}
-
 adminRoot = core.modules.admin;
 assert( adminRoot );
 admin = {};
@@ -22,13 +10,13 @@ admin.getAppNav = function(key){
     // a file. We can't yet check core.isLoaded(key) or core.app.isLoaded(key)
     // so let's check the safe ones before we check if we can load old ones
     // from corejs.
-    if(core.modules.isLoaded(key)){
-        if(core.modules[key] && core.modules[key].admin && core.modules[key].admin.leftNav)
-                appNav = core.modules[key].admin.leftNav;
+    if(coreModules.isLoaded(key)){
+        if(coreModules[key] && coreModules[key].admin && coreModules[key].admin.leftNav)
+                appNav = coreModules[key].admin.leftNav;
     }
-    else if(local.modules.isLoaded(key)){
-        if(local.modules[key] && local.modules[key].admin && local.modules[key].admin.leftNav)
-            appNav = local.modules[key].admin.leftNav;
+    else if(localModules.isLoaded(key)){
+        if(localModules[key] && localModules[key].admin && localModules[key].admin.leftNav)
+            appNav = localModules[key].admin.leftNav;
     }
     else if(core[key]){
         if(core[key].admin && core[key].admin.leftNav) appNav = core[key].admin.leftNav;
