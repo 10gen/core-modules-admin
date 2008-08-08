@@ -15,16 +15,26 @@
 */ %>
 
 <%
-if(! allowModule && siteScope){
+
+if(siteScope){
+  if(! allowModule){
     allowModule = siteScope.allowModule;
-}
+  }
 
-if(! version && siteScope){
+  if(! version){
     version = siteScope.version;
-}
+  }
 
-if(! routes && siteScope){
+  if(! routes){
     routes = siteScope.routes;
+  }
+
+  coreModules = siteScope.core.modules;
+  localModules = siteScope.local.modules;
+}
+else {
+  coreModules = core.modules;
+  localModules = local.modules;
 }
 
 /* everyone is allowed to read the source code in corejs and samples. */
