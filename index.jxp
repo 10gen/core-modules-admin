@@ -189,6 +189,9 @@ if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
 }
 
 if ( isFunction( section ) ){
+    // Don't save section names that have slashes, because we don't want to run
+    // one from /admin (which doesn't have the right directory, and so will
+    // screw up URLs on the browser side).
     if( ! ajaxFunctions.contains(sectionName) && ! sectionName.contains("/") ){
         user.adminSection = sectionName;
         db.users.save(user);
