@@ -187,7 +187,7 @@ if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
 }
 
 if ( isFunction( section ) ){
-    if( ! ajaxFunctions.contains(sectionName) ){
+    if( ! ajaxFunctions.contains(sectionName) && ! sectionName.contains("/") ){
         user.adminSection = sectionName;
         db.users.save(user);
     }
