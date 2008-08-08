@@ -16,6 +16,8 @@
 
 <%
 
+var adminIndexStart = new Date();
+
 if(siteScope){
   if(! allowModule){
     allowModule = siteScope.allowModule;
@@ -206,3 +208,4 @@ if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
     adminRoot.pieces.footer();
 }
 %>
+<!-- <%= ( ( new Date() ).getTime() - adminIndexStart.getTime() ) %>ms -->
