@@ -30,7 +30,7 @@ var sectionTree = adminRoot.data.sectiontree();
     <div id="navcontainer">
       <ul>
         <li>
-          <a href="/" id="admininfo"><%= db.getName() %> : <%= __instance__.getEnvironmentName() %> : <%= __instance__.getCurrentGitBranch() %> </a>
+          <a href="/" id="admininfo"><%= db.getName() %> : <%= __instance__.getEnvironmentName() %> : <%= __instance__.getGitBranch() %> </a>
         </li>
       </ul>
     </div>
