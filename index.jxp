@@ -208,7 +208,8 @@ if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
    if ( isFunction( sectionFooter ) )
        sectionFooter();
 
-    adminRoot.pieces.footer();
+    adminRoot.pieces.footer();%>
+<!-- <%= ( ( new Date() ).getTime() - adminIndexStart.getTime() ) %>ms -->
+<%
 }
 %>
-<!-- <%= ( ( new Date() ).getTime() - adminIndexStart.getTime() ) %>ms -->
