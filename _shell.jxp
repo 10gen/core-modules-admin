@@ -11,13 +11,12 @@ var isShellCommand = function(cmd) {
 	return (new admin.data.Bash()).getCmdArray().contains(cmd);
 }
 
-var gg = siteScope;
+var gg = siteScope || scope;
 var adminG = scope.globals.getParent();
 var holder = adminG._adminScopeHolder;
 if ( ! holder ){
     holder = {};
-    var s = adminG.getTLPreferred();
-    adminG.putExplicit( '_adminScopeHolder', adminG );
+    adminG.putExplicit('_adminScopeHolder', holder);
 }
 
 var theScope = holder[ shellId ];
