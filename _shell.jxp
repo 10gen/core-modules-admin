@@ -153,7 +153,7 @@ finally{
 // Crappy instanceof check for something that isn't exposed to JS
 if(res && new String(res.getClass()) == "class ed.db.DBCursor"){
     log("Got a thing");
-    newres = res;
+    newres = res.copy();
     var n = newres.count();
     var all = [];
     var fieldSize = {};
