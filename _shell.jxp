@@ -17,9 +17,7 @@ var holder = adminG._adminScopeHolder;
 if ( ! holder ){
     holder = {};
     var s = adminG.getTLPreferred();
-    adminG.setTLPreferred( adminG );
-    adminG._adminScopeHolder = holder;
-    adminG.setTLPreferred( s );
+    adminG.putExplicit( '_adminScopeHolder', adminG );
 }
 
 var theScope = holder[ shellId ];
