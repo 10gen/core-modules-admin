@@ -93,6 +93,8 @@ function mungeData( cursor , t , startTime ){
 
     var msDiff = minutes * 60 * 1000;
 
+    if ( a.length == 0 ) return [];
+
     while ( a[0].time.getTime() > ( startTime.getTime() + 5000 ) ){
         var d = new Date( a[0].time.getTime() - msDiff );
         a.unshift( { time : d , num : 0 } );
