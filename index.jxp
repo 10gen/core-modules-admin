@@ -58,6 +58,8 @@ if ( ! user ){
     user = Auth.getUser( request );
 }
 
+var sectionTree = adminRoot.data.sectiontree();
+
 var sectionName = request.getURI().replace( /.*admin\/*/ , "" ).replace( /\.jxp/ , "" );
 sectionName = sectionName.replace(/^\/(index)?$/, '');
 if ( sectionName.endsWith("/") && sectionName.length > 1 )
@@ -65,8 +67,14 @@ if ( sectionName.endsWith("/") && sectionName.length > 1 )
 
 if ( sectionName == "" || sectionName.match( /^index/ ) ){
     sectionName = null;
-    if(user)
+    if(user && user.adminSection){
+        var target = sectionTree.restore[ user.adminSection ] || user.adminSection;
+        if(target && target != '/'){
+            response.sendRedirectTemporary('/admin/'+target);
+            return;
+        }
         sectionName = user.adminSection;
+    }
     if(sectionName == null)
         sectionName = "welcome";
 }
@@ -97,7 +105,7 @@ if ( ! allowed ){
 }
 
 assert( adminRoot );
-var sectionMap = adminRoot.data.sectiontree().reverse;
+var sectionMap = sectionTree.reverse;
 
 var sectionList = sectionMap[sectionName];
 
@@ -189,10 +197,7 @@ if ( ajaxFunctions.indexOf(sectionName) == -1 ) {
 }
 
 if ( isFunction( section ) ){
-    // Don't save section names that have slashes, because we don't want to run
-    // one from /admin (which doesn't have the right directory, and so will
-    // screw up URLs on the browser side).
-    if( ! ajaxFunctions.contains(sectionName) && ! sectionName.contains("/") ){
+    if( ! ajaxFunctions.contains(sectionName) ){
         user.adminSection = sectionName;
         db.users.save(user);
     }

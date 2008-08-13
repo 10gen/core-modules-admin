@@ -25,7 +25,7 @@ admin.getAppNav = function(key){
         if(core.app[key].admin && core.app[key].admin.leftNav) appNav = core.app[key].admin.leftNav;
     }
 
-    if (!appNav) appNav = function(){ log.admin.debug("Can't get nav tree for application " + key); return{tree: [], reverse: []}; };
+    if (!appNav) appNav = function(){ log.admin.debug("Can't get nav tree for application " + key); return{tree: [], reverse: [], restore: {}}; };
     appNav = appNav();
     return appNav;
 };
