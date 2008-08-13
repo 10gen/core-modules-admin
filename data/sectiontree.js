@@ -90,6 +90,9 @@ var reverse = {
     'applications': ['applications'],
 };
 
+var restore = {
+};
+
 
 // For each appModule we added, get its forward map, and merge it
 // Expected structure is: list of {pretty: 'Str', target: 'pagename' || false}
@@ -152,13 +155,16 @@ function doReverseMapping( mod , appNav ){
 for(var key in allowModule){
     var appNav = admin.getAppNav(key);
     doReverseMapping( key , appNav );
+    for(var restoreKey in appNav.restore || {}){
+        restore[ key + '/' + restoreKey ] = key + '/' + appNav.restore[ restoreKey ];
+    }
 }
 
 if ( local.admin && local.admin.leftNav )
     doReverseMapping( "my" , local.admin.leftNav() );
 
 // Remove sections that user can't access
-if(Ext.getlist(allowModule, 'admin', 'permissions') && ! user.isAdmin()){
+if(Ext.getlist(allowModule, 'admin', 'permissions') && user && ! user.isAdmin()){
     var adminperm = Ext.getlist(allowModule, 'admin', 'permissions');
     for(var key in Object.extend({}, tree)){
         var obj = tree[key];
@@ -193,4 +199,4 @@ if(Ext.getlist(allowModule, 'admin', 'permissions') && ! user.isAdmin()){
     }
 }
 
-return {tree: tree, reverse: reverse};
+return {tree: tree, reverse: reverse, restore: restore};
