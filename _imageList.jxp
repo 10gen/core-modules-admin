@@ -1,3 +1,4 @@
+<% response.setHeader( "Content-Type" , "application/json" ); %>
 var tinyMCEImageList = [ 
 <%
 var cursor = db._files.find(  ).sort( { uploadDate : -1 } );
