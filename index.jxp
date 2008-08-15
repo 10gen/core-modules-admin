@@ -51,6 +51,9 @@ _openAccess =
     request.getURI().match( /^.admin\/doc$/ ) &&
     ( request.getHost() == "corejs.10gen.com" || request.getHost() == "samples.10gen.com");
 
+if( request.getURI().match( /^\/admin\/_ugly_hack_getDB$/ ) )
+    return core.modules.admin._ugly_hack_getDB();
+
 core.user.user();
 core.user.auth();
 
