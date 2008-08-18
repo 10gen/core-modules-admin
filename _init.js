@@ -10,12 +10,14 @@ admin.getAppNav = function(key){
     // a file. We can't yet check core.isLoaded(key) or core.app.isLoaded(key)
     // so let's check the safe ones before we check if we can load old ones
     // from corejs.
+    var prefix = '';
     if(coreModules.isLoaded(key)){
         if(coreModules[key] && coreModules[key].admin && coreModules[key].admin.leftNav)
                 appNav = coreModules[key].admin.leftNav;
     }
     else if(localModules.isLoaded(key)){
         if(localModules[key] && localModules[key].admin && localModules[key].admin.leftNav)
+            prefix = 'my/modules/';
             appNav = localModules[key].admin.leftNav;
     }
     else if(core[key]){
@@ -27,6 +29,7 @@ admin.getAppNav = function(key){
 
     if (!appNav) appNav = function(){ log.admin.debug("Can't get nav tree for application " + key); return{tree: [], reverse: [], restore: {}}; };
     appNav = appNav();
+    appNav.prefix = prefix;
     return appNav;
 };
 

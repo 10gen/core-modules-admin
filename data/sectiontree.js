@@ -152,16 +152,27 @@ function doReverseMapping( mod , appNav ){
     }
 }
 
-for(var key in allowModule){
-    var appNav = admin.getAppNav(key);
-    doReverseMapping( key , appNav );
+function doRestoreMapping( key , appNav ){
+    var prefix = appNav.prefix;
     for(var restoreKey in appNav.restore || {}){
-        restore[ key + '/' + restoreKey ] = key + '/' + appNav.restore[ restoreKey ];
+        if( ! appNav.restore[ restoreKey ].startsWith('/') )
+            restore[ prefix + key + '/' + restoreKey ] = key + '/' + appNav.restore[ restoreKey ];
+        else {
+            restore[ prefix + key + '/' + restoreKey ] = appNav.restore[ restoreKey ];
+        }
     }
 }
 
-if ( local.admin && local.admin.leftNav )
+for(var key in allowModule){
+    var appNav = admin.getAppNav(key);
+    doReverseMapping( key , appNav );
+    doRestoreMapping( key , appNav );
+}
+
+if ( local.admin && local.admin.leftNav ){
     doReverseMapping( "my" , local.admin.leftNav() );
+    doRestoreMapping( 'my' , local.admin.leftNav() );
+}
 
 // Remove sections that user can't access
 if(Ext.getlist(allowModule, 'admin', 'permissions') && user && ! user.isAdmin()){
