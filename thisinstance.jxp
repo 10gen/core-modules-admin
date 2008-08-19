@@ -20,16 +20,16 @@
 </h1>
 
 <%
-    if ( request.action == "Reset Scope" ){
+    if ( request.action == "Reset Instance" ){
         if ( request.sure ){
-            __instance__.reset();
-            print( "scope reset" );
+            siteScope.__instance__.reset();
+            print( "Instance Reset!" );
         }
         else {
             print( "<p style='padding-bottom: .5em;'>Are you sure you want to reset scope? </p>" );
             %>
 <form>
-  <input type="hidden" name="action" value="Reset Scope">
+  <input type="hidden" name="action" value="Reset Instance">
   <input type="image" src="assets/img/button_yes_on_white.gif" name="sure" value="yes"/>
 </form>
 
@@ -70,5 +70,5 @@
 </div>
 
 <form>
-  <input type="image" src="assets/img/button_reset_scope_on_white.gif" name="action" value="Reset Scope"/>
+  <input type="image" src="assets/img/button_reset_scope_on_white.gif" name="action" value="Reset Instance"/>
 </form>
