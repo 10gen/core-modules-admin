@@ -140,7 +140,7 @@ function doReverseMapping( mod , appNav ){
 
     for(var i in appTree){
         var pair = appTree[i];
-        var name = mod;
+        var name = appNav.prefix+mod;
         if(pair.target != false)
             name += '/'+pair.target;
         reverse[name] = [mod, pair.target];
