@@ -1,0 +1,30 @@
+<%
+    var res = arguments[0].site.updateEnvironment( request.name , request.getBoolean( "full" , false ) );
+
+if ( res.ok )
+    print( "<h2 style='color: green'>Success</h2>" ) ;
+else 
+    print( "<h2 style='color: red'>PROBLEMS!!!!</h2>" );
+
+print( "<hr>" );
+
+for ( var machine in res ){
+    if ( machine == "ok" ) 
+        continue;
+    
+    print( "<h2>" + machine + "</h2>" );
+    var foo = res[machine];
+    
+    if ( isObject( foo ) ){
+        for ( var key in foo ){
+            print( "<b>" + key + "</b> " + foo[key] + "<br>" );
+        }
+    }
+    else {
+        print( foo );
+    }
+    
+}
+
+%>
+
