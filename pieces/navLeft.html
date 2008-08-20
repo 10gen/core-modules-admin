@@ -65,7 +65,7 @@ var toggleClass = function(elemId){
         </ul><h1><%= key %></h1><ul>
           <% }
              else if(typeof sectionTree[key] == "string"){
-             if(key != sectionList[0]){ %>
+          if(key != sectionList[0]){ %>
           <li><a href="<%= sectionTree[key] %>"><%= key.toUpperCase() %></a></li>
           <% } else { %>
           <li class="current-section">
