@@ -1,0 +1,129 @@
+<%
+
+/**
+   envs
+   dbs
+   configs (global,env)
+ */
+
+djang10.addTemplateTagsRoot( "/core/modules/admin/cloud/" );
+    
+function myError( msg ){
+    print( "<h3 style='color:red'>" + msg + "</h3>" );
+}
+
+var tab = request.tab || "overview";
+var thing = null;
+if ( tab.contains( "/" ) ){
+    thing = tab.substring( tab.indexOf( "/" ) + 1 );
+    tab = tab.substring( 0 , tab.indexOf( "/" ) );
+}
+
+if ( tab == "index" )
+    tab = "overview";
+
+if ( thing == "index" )
+    thing = null;
+
+var javaCloud = javaStatic(  "ed.cloud.Cloud" , "getInstanceIfOnGrid" );
+if ( ! ( javaCloud && __instance__ && __instance__.getName() ) ) 
+    return myError( "You are not running inside a cloud<" ); 
+
+var jsCloud = javaCloud.getScope().Cloud;
+var mysite = jsCloud.getScope().db.sites.findOne( { name : __instance__.getName() } );
+
+if ( ! mysite ){
+    return myError( "can't find your site [" + __instance__.getName() + "] in the cloud:(  contact your administrator" ); 
+}
+
+var display = { 
+    base : "/admin/cloud/" , 
+    site : mysite ,
+    selectWidget : function(  name , choices , selected ){
+        choices = choices || [];
+        var html = "";
+        
+        html += "<select name='" + name + "'>";
+        html += "<option>--none--</option>";
+        for ( var i=0; i<choices.length; i++ ){
+            html += "<option value='" + choices[i] + "' ";
+            if ( choices[i] == selected )
+                html += " selected ";
+            html += " >" + choices[i] + "</option>";
+        }
+        html += "</select>";
+        return html;
+    }
+};
+
+display.currentEnvironment = __instance__.getEnvironmentName();
+//display.uber = user.email.match( /@10gen.com/ );
+
+if ( request.remove == "db" ){
+    if ( mysite.removeDB( request.name ) ){
+        mysite._save();
+        display.msg = "Deleted DB <b>" + request.name + "</b>";
+        tab = "overview";
+    }
+    else {
+        display.msg = "couldn't delete db [" + request.name + "]";
+    }
+    tab = "overview";
+}
+
+if ( request.remove == "env" ){
+    if ( mysite.removeEnvironment( request.name ) ){
+        mysite._save();
+        display.msg = "Deleted Environment <b>" + request.name + "</b>";
+        tab = "overview";
+    }
+    else {
+        display.msg = "couldn't delete environment [" + request.name + "]";
+    }
+    tab = "overview";
+}
+
+
+
+if ( tab == "db" ){
+    display.alldbs = jsCloud.DB.getAllDBNames();
+
+    var dbName = thing || request.name;
+    if ( dbName ){
+        var mydb = mysite.findDB( dbName );
+        if ( request.add ){
+            if ( mysite.upsertDB( dbName , display.uber ? request.server : null ) ){
+                mysite._save();
+                return response.sendRedirectTemporary( "/admin/cloud/" );
+            }
+        }
+    }
+    
+    display.db = mydb;
+}
+
+if ( tab == "env" ){
+    display.allpools = jsCloud.Pool.getAllNames();
+    var envName = thing || request.name;
+    if ( envName ){
+        request.name = envName;
+        var myenv = mysite.findEnvironment( envName );
+
+        if ( request.action == "Save" ){
+            if ( mysite.upsertEnvironment( request ) ){
+                display.msg = "Environment Saved";
+                mysite._save();
+            }
+            tab = "overview";
+        }
+
+
+        if ( myenv )
+            display.env = myenv;
+    }
+}
+
+if ( ! core.modules.admin.cloud[tab] ) 
+    return myError( "unknown tab [" + tab + "]" );
+core.modules.admin.cloud[ tab ]( display );
+%>

@@ -1,0 +1,86 @@
+
+{% if msg %}
+<b style="color:red;">{{ msg | safe }}</b>
+{% endif %}
+
+
+<script src="/~~/ui/js/10gen.js"></script>
+<script>
+  var branches = {{ tojson( site.getGitBranchNames ) | safe }};
+  function confirmDelete( what , url ){
+     if ( window.confirm( "Are you sure you want to delete " + what ) ){
+        window.location = url;
+     }
+  }
+</script>
+
+<h2>gitroot</h2>
+<div>{{ site.giturl }}</div>
+
+<h2>Databases</h2>
+<table border="1">
+  <tr>
+    <th>Name</th>
+    {% if uber %}
+    <th>Server</th>
+    {% endif %}
+    <th>Comment</th>
+    <th></th>
+  </tr>
+  {% for d in site.dbs %}
+  <tr>
+    <td>{{ d.name }}</td>
+    {% if uber %}
+    <td>{{ d.server }}</td>
+    {% endif %}
+    <td>{{ d.comment }}</td>
+    <td>
+      {% if uber %}<a href="/admin/cloud/db/{{ d.name }}">edit</a>{% endif %}
+      <a href="javascript:confirmDelete( 'DB {{ d.name }}' , '/admin/cloud/?remove=db&name={{ d.name }}' )">remove</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="/admin/cloud/db/">new</a>
+
+
+
+<h2>Environments</h2>
+<table border="1">
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Branch</th>
+    <th>DB</th>
+    {% if uber %}
+    <th>Pool</th>
+    {% endif %}
+    <th>Aliases</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+  </tr>
+  {% for e in site.environments %}
+  <tr>
+    <td>{% ifequal e.name currentEnvironment %}<span style='color: red;'>*</span>{% endifequal %}</td>
+    <td>{{ e.name }}</td>
+    <td>{{ e.branch }}</td>
+    <td>{{ e.db }}</td>
+    {% if uber %}
+    <td>{{ e.pool }}</td>
+    {% endif %}
+    <td>{{ e.aliases }}</td>
+    <td>{{ e.comment }}</td>
+    <td>
+      <a href="http://{{ e.name }}.{{ site.name }}.10gen.com/" target="env_{{ e.name }}_{{site.name}}">view</a> | 
+      <a href="/admin/cloud/env/{{ e.name }}">edit</a> |
+      <a href="javascript:confirmDelete( 'Environment {{ e.name }}' , '/admin/cloud/?remove=env&name={{ e.name }}' )">remove</a>
+    </td>
+    <td>
+      <a href="/admin/cloud/reset?name={{ e.name }}">Update Code</a> |
+      <a href="/admin/cloud/reset?name={{ e.name }}&full=true">Reset Context</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="/admin/cloud/env/">new</a>

@@ -1,0 +1,10 @@
+<h3>DB Edit</h3>
+
+<form>
+  <input type="hidden" name="add" value="true">
+  Name: <input name="name" value="{{ db.name }}" {% if db.name %}disabled{% endif %} ><br>
+  {% if uber %}
+  Server: {{ selectWidget( "server" , alldbs , db.server ) | safe }}
+  {% endif %}
+  <input type="submit" value="Save">
+</form>
