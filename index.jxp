@@ -107,11 +107,6 @@ if ( ! allowed ){
     });
 }
 
-assert( adminRoot );
-var sectionMap = sectionTree.reverse;
-
-var sectionList = sectionMap[sectionName];
-
 // map main sections to default pages
 var defaultPage = {
     'statistics' : 'usage',
@@ -176,6 +171,11 @@ if ( section == null && sectionName.match( /\// ) ){
         }
     }
 }
+
+assert( adminRoot );
+var sectionMap = sectionTree.reverse;
+
+var sectionList = sectionMap[sectionName];
 
 if ( section == null ) {
     if(defaultPage[sectionName])
