@@ -502,6 +502,12 @@ tr.white-main td.fatal, span.fatal {
 	color: #d41f1f;
 }
 
+tr.white-main th a.sortable, tr.white-main th a.sortable:visited {
+	margin: 0;
+	padding: 1em 1.2em 0 0;
+	background:url(img/icon_sortable.gif) no-repeat 100% bottom;
+}
+
 tr.white-main th a.sort-down, tr.white-main th a.sort-down:visited {
 	margin: 0;
 	padding: 1em 1.2em 0 0;
