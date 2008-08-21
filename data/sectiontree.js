@@ -52,8 +52,10 @@ var tree = {
  // remove for now until we get this sorted
 
  /*   'docs': '/admin/docs', */
+    
+    'cloud' : "/admin/cloud/" ,
 
-    'instance stats' : '/admin/thisinstance' ,
+    'instance' : '/admin/thisinstance' ,
 };
 
 // Maps jxp names to sections
@@ -87,6 +89,8 @@ var reverse = {
 //  remove for now until we get this sorted
 
         /* 'doc': ['docs'], */
+    "cloud" : [ "cloud" ] ,
+    "thisinstance" : [ "instance" ] ,
     'applications': ['applications'],
 };
 
