@@ -57,7 +57,7 @@ var display = {
 };
 
 display.currentEnvironment = __instance__.getEnvironmentName();
-//display.uber = user.email.match( /@10gen.com/ );
+display.uber = user.email.match( /@10gen.com/ );
 
 if ( request.remove == "db" ){
     if ( mysite.removeDB( request.name ) ){
@@ -127,3 +127,5 @@ if ( ! core.modules.admin.cloud[tab] )
     return myError( "unknown tab [" + tab + "]" );
 core.modules.admin.cloud[ tab ]( display );
 %>
+<br><br>
+<a href="http://www.10gen.com/wiki/deployment">help</a>
