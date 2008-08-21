@@ -53,6 +53,7 @@ var tree = {
 
  /*   'docs': '/admin/docs', */
     
+    "dev tools" : "/admin/devTools" ,
     'cloud' : "/admin/cloud/" ,
 
     'instance' : '/admin/thisinstance' ,
@@ -90,6 +91,7 @@ var reverse = {
 
         /* 'doc': ['docs'], */
     "cloud" : [ "cloud" ] ,
+    "devTools" : [ "dev tools" ] ,
     "thisinstance" : [ "instance" ] ,
     'applications': ['applications'],
 };

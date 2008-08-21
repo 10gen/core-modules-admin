@@ -1,0 +1,17 @@
+<h2>Developer Tools</h2>
+<%
+    if ( request.action == "toggle" && request.control ){
+        var name = "dev_" + request.control;
+        session[ name ] = ! session[ name ];
+    }
+%>
+<% var sessionControls = [ "profiling" , "logs" ]; %>
+<table>
+  <forarray control sessionControls>
+    <tr>
+      <th><%= control %></th>
+      <td><%= session["dev_" + control] ? "<b>ON</b>" : "off"  %></td>
+      <td><a href="/admin/devTools?action=toggle&control=<%= control %>">toggle</a></td>
+    </tr>
+  </forarray>
+</table>
