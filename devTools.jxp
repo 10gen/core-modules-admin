@@ -6,7 +6,7 @@
     }
 %>
 <% var sessionControls = [ "profiling" , "logs" ]; %>
-<table>
+<table border="1">
   <forarray control sessionControls>
     <tr>
       <th><%= control %></th>
