@@ -924,3 +924,6 @@ div.existing_index span {
 div.error {
 		color:#ff6600;
 }
+.mono {
+      font-family: monospace;
+}

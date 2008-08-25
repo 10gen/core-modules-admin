@@ -155,18 +155,31 @@ else if(request.action == "search" || request.action == "userssearch" || request
     else
         rows = collection.find(searchobj).sort(mySort).skip(start).limit(rowsPerPage).toArray();
 }
+// dbshell
 else if(request.action == "eval") {
     try {
-        var rows = scope.eval(request.cmd);
-        if(!rows)
-            return "No results.";
-        rows = rows.toArray();
-        top = false;
+        var erows = eval(request.cmd);
     }
     catch(e) {
-        print( "Exception: "+e);
+        print( "Error with eval: "+e);
+    }
+
+    if(!erows) {
+        print("No results.");
         return;
     }
+    if( erows instanceof Array || typeof erows != "object" ) {
+        print( "<div class=\"mono\">"+tojson( erows )+"</div>" );
+        return;
+    }
+
+    try {
+        rows = erows.toArray();
+    }
+    catch(e) {
+        rows = [ erows ];
+    }
+    top = false;
 }
 else {
     var collection;
