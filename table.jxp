@@ -150,10 +150,7 @@ else if(request.action == "search" || request.action == "userssearch" || request
     }
 
     var start = (currentPage - 1)*rowsPerPage;
-    if(top)
-        rows = collection.find(searchobj).sort(mySort).skip(start).limit(rowsPerPage).toArray();
-    else
-        rows = collection.find(searchobj).sort(mySort).skip(start).limit(rowsPerPage).toArray();
+    rows = collection.find(searchobj).sort(mySort).skip(start).limit(rowsPerPage).toArray();
 }
 // dbshell
 else if(request.action == "eval") {
