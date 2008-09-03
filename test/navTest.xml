@@ -22,24 +22,43 @@
 <!-- From the HTMLUnit source, but : doesn't work?? -->
 <!--<header name="User-Agent" value="Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322)"/>-->
       </config>
-      <invoke url="${site}/admin"  username="test@10gen.com" password="test"/>
+      <invoke url="${site}/admin"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <clickLink label="SHELL" description="make sure that the trailing slash is optional"/>
 
-      <invoke url="${site}/admin/"  username="test@10gen.com" password="test"/>
+      <clickLink label="logout"/>
+      <invoke url="${site}/admin/"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <clickLink label="SHELL"/>
 
+      <clickLink label="logout"/>
+      <invoke url="${site}/admin/"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <enableJavaScript enable="false"/>
-      <invoke url="${site}/admin/"  username="test@10gen.com" password="test"/>
       <clickLink label="STATISTICS"/>
       <!-- this won't actually do anything because JS was disabled for this test -->
 
-      <invoke url="${site}/admin/usage"/>
       <enableJavaScript enable="true"/>
+      <invoke url="${site}/admin/usage"/>
 
-      <invoke url="${site}/admin/"  username="test@10gen.com" password="test"/>
+      <clickLink label="logout"/>
+      <invoke url="${site}/admin/"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <clickLink label="USERS"/>
 
-      <invoke url="${site}/admin/"  username="test@10gen.com" password="test"/>
+      <clickLink label="logout"/>
+      <invoke url="${site}/admin/"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <clickLink label="DATABASE"/>
       <!-- Verify that we went somewhere? Or, not? -->
 
@@ -52,13 +71,25 @@
       <invoke url="${site}/admin/"/>
       <clickLink label="Database Shell"/>
 
-      <invoke url="${site}/admin/"  username="test@10gen.com" password="test"/>
+      <clickLink label="logout"/>
+      <invoke url="${site}/admin/"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <clickLink label="FILES"/>
 
-      <invoke url="${site}/admin/"  username="test@10gen.com" password="test"/>
+      <clickLink label="logout"/>
+      <invoke url="${site}/admin/"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <clickLink label="CRON"/>
 
-      <invoke url="${site}/admin/"  username="test@10gen.com" password="test"/>
+      <clickLink label="logout"/>
+      <invoke url="${site}/admin/"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <clickLink label="LOGS" description="This actually does JS to display stuff"/>
       <!-- Verify that we went somewhere? Or, not? -->
 

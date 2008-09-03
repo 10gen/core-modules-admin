@@ -20,7 +20,10 @@
       <config>
         <header name="User-Agent" value="Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0"/>
       </config>
-      <invoke url="${site}/admin/cron"  username="test@10gen.com" password="test"/>
+      <invoke url="${site}/admin/cron"/>
+      <setInputField name="login_user" value="test@10gen.com"/>
+      <setInputField name="login_pass" value="test"/>
+      <clickButton label="Login"/>
       <!-- believe it or not, there's AJAX in loading the table on the cron page -->
       <sleep seconds="1" description="AJAX in loading the table"/>
       <verifyXPath xpath="//*[contains(text(), 'No entries.')]"/>
