@@ -37,6 +37,7 @@ head.push('<script type="text/javascript" src="/@@/yui/current/button/button-min
 head.push('<script type="text/javascript" src="/@@/yui/current/container/container-min.js" ></script>');
 
 db._files.ensureIndex( { uploadDate : 1 } );
+db._files.ensureIndex( { filename : 1 } );
 
 %>
 
