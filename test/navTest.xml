@@ -44,8 +44,9 @@
       <clickLink label="STATISTICS"/>
       <!-- this won't actually do anything because JS was disabled for this test -->
 
-      <enableJavaScript enable="true"/>
       <invoke url="${site}/admin/usage"/>
+      <invoke url="${site}/admin/users"/>
+      <enableJavaScript enable="true"/>
 
       <clickLink label="logout"/>
       <invoke url="${site}/admin/"/>
@@ -76,7 +77,7 @@
       <setInputField name="login_user" value="test@10gen.com"/>
       <setInputField name="login_pass" value="test"/>
       <clickButton label="Login"/>
-      <clickLink label="FILES"/>
+      <clickLink label="GRIDFS"/>
 
       <clickLink label="logout"/>
       <invoke url="${site}/admin/"/>
@@ -94,10 +95,10 @@
       <!-- Verify that we went somewhere? Or, not? -->
 
       <invoke url="${site}/admin/"/>
-      <clickLink label="Logs in Memory"/>
+      <clickLink label="Raw Logs"/>
 
       <invoke url="${site}/admin/"/>
-      <clickLink label="Scrolling Logs"/>
+      <clickLink label="Logs"/>
 
     </webtest>
   </target>

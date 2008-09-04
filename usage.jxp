@@ -41,6 +41,9 @@ function getTotalByteArray(cursor, t,min) {
 
     cursor.forEach( function( z ){
 	    //assert( lastTS == null || lastTS <= z.ts );
+	    if (z === null) {
+	        return;
+	    }
 	    lastTS = z.ts;
 
             var n = doRound( z.ts , t );
@@ -51,6 +54,10 @@ function getTotalByteArray(cursor, t,min) {
             a[a.length - 1 ].num += z.num;
             last = n;
         } );
+
+    if (a.length === 0) {
+        return [];
+    }
 
     if ( min ){
 	while ( a.length < min ){
