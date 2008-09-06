@@ -92,7 +92,7 @@ if ( tab == "db" ){
     if ( dbName ){
         var mydb = mysite.findDB( dbName );
         if ( request.add ){
-            if ( mysite.upsertDB( dbName , display.uber ? request.server : null ) ){
+            if ( mysite.upsertDB( dbName , display.uber ? request.server : null , user ) ){
                 mysite._save();
                 return response.sendRedirectTemporary( "/admin/cloud/" );
             }
