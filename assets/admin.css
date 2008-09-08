@@ -37,6 +37,7 @@ h2, h3, h4, p, ul, ol, dl, pre {
 
 h1 {
 	margin:0;
+	margin-bottom: .5em;
 	padding:0;
 	font-size: 148%;
 	color: #333;
@@ -775,6 +776,38 @@ div.data-display table td {
 	text-align: left;
 }
 
+/* Main Area Tables */
+
+table.admin {
+	margin-bottom: 1em;
+	border: 1px solid #666;
+	border-collapse: collapse;
+}
+
+table.admin th {
+	padding: .5em;
+	font-size: 100%;
+	font-weight: bold;
+	background-color: white;
+	color: #333;
+	text-align: left;
+}
+
+table.admin td {
+	padding: .5em;
+	font-size: 93%;
+	text-align: left;
+	border-top: 1px solid #999; 
+}
+
+table.adminside th {
+	border-bottom: 1px solid #999; 
+}
+
+table.adminside td {
+	border-top: none;
+	border-bottom: 1px solid #999; 
+}
 
 /* Form Edit */
 

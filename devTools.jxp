@@ -1,4 +1,4 @@
-<h2>Developer Tools</h2>
+<h1>Developer Tools</h1>
 <%
     if ( request.action == "toggle" && request.control ){
         var name = "dev_" + request.control;
@@ -6,7 +6,7 @@
     }
 %>
 <% var sessionControls = [ "profiling" , "logs" ]; %>
-<table border="1">
+<table class="admin adminside">
   <forarray control sessionControls>
     <tr>
       <th><%= control %></th>
