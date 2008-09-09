@@ -2,9 +2,22 @@
 
 <form>
   <input type="hidden" name="add" value="true">
-  Name: <input name="name" value="{{ db.name }}" {% if db.name %}disabled{% endif %} ><br>
-  {% if uber %}
-  Server: {{ selectWidget( "server" , alldbs , db.server ) | safe }}
-  {% endif %}
+  
+  <table class="admin adminside">
+    <tr>
+      <th>Name</th>
+      <td><input name="name" value="{{ db.name }}" {% if db.name %}disabled{% endif %} ></td>
+    </tr>
+    {% if uber %}
+    <tr>
+      <th>Server</th>
+      <td>{{ selectWidget( "server" , alldbs , db.server ) | safe }}</td>
+    </tr>
+    {% endif %}
+  </table>
   <input type="submit" value="Save">
 </form>
+
+<a href="/admin/cloud/copyUser?db={{ db.name }}">copy my user to this database</a>
+
+

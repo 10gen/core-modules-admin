@@ -75,6 +75,19 @@ var display = {
 display.currentEnvironment = __instance__.getEnvironmentName();
 display.uber = user.email.match( /@10gen.com/ );
 
+if ( tab == "copyUser" && request.db ){
+    var theDB = mysite.findDB( request.db );
+    if ( ! theDB )
+        return myError( "can't find db [" + request.db + "]" );
+    if ( ! theDB.getConnection )
+        return myError( "don't support this yet" );
+    var theirUsers = theDB.getConnection().users;
+    if ( theirUsers.findOne( { email : user.email } ) )
+        return myError( "user with email [" + user.email + "] already exists" );
+    theirUsers.save( user );
+    print( "user saved<br>" );
+    tab = "overview";
+}
 
 if ( tab == "stealAlias" && request.name && request.alias ){
     for each ( e in mysite.environments ){
