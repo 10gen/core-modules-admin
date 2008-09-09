@@ -18,7 +18,7 @@
 <div>{{ site.giturl }}</div>
 
 <h2>Databases</h2>
-<table border="1">
+<table class="admin" >
   <tr>
     <th>Name</th>
     {% if uber %}
@@ -36,7 +36,7 @@
     <td>{{ d.comment }}</td>
     <td>
       {% if uber %}<a href="/admin/cloud/db/{{ d.name }}">edit</a>{% endif %}
-      <a href="javascript:confirmDelete( 'DB {{ d.name }}' , '/admin/cloud/?remove=db&name={{ d.name }}' )">remove</a>
+      {% if canRemoveDB( d.name ) %}<a href="javascript:confirmDelete( 'DB {{ d.name }}' , '/admin/cloud/?remove=db&name={{ d.name }}' )">remove</a>{% endif %}
     </td>
   </tr>
   {% endfor %}
@@ -46,7 +46,7 @@
 
 
 <h2>Environments</h2>
-<table border="1">
+<table class="admin">
   <tr>
     <th></th>
     <th>Name</th>
@@ -79,6 +79,11 @@
     <td>
       <a href="/admin/cloud/reset?name={{ e.name }}">Update Code</a> |
       <a href="/admin/cloud/reset?name={{ e.name }}&full=true">Reset Context</a>
+      {% for a in allAliases %}
+      {% if not e.aliases.contains( a ) %}
+      | <a href="/admin/cloud/stealAlias?name={{ e.name }}&alias={{ a }}">steal alias <b>{{ a }}</b></a>
+      {% endif %}
+      {% endfor %}
     </td>
   </tr>
   {% endfor %}

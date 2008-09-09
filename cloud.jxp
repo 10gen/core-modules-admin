@@ -27,7 +27,7 @@ if ( thing == "index" )
 
 var javaCloud = javaStatic(  "ed.cloud.Cloud" , "getInstanceIfOnGrid" );
 if ( ! ( javaCloud && __instance__ && __instance__.getName() ) ) 
-    return myError( "You are not running inside a cloud<" ); 
+    return myError( "You are not running inside a cloud" ); 
 
 var jsCloud = javaCloud.getScope().Cloud;
 var mysite = jsCloud.getScope().db.sites.findOne( { name : __instance__.getName() } );
@@ -53,11 +53,40 @@ var display = {
         }
         html += "</select>";
         return html;
+    } ,
+    canRemoveDB : function( name ){
+        for each ( e in mysite.environments ){
+                if ( e.db == name )
+                    return false;
+            }
+        return true;
+    } ,
+    allAliases : function(){
+        var all = [];
+        for each ( e in mysite.environments ){
+                if ( e.aliases )
+                    all.addAll( e.aliases );
+            }
+        return all;
     }
+    
 };
 
 display.currentEnvironment = __instance__.getEnvironmentName();
 display.uber = user.email.match( /@10gen.com/ );
+
+
+if ( tab == "stealAlias" && request.name && request.alias ){
+    for each ( e in mysite.environments ){
+            if ( e.name == request.name && ! e.aliases.contains( request.alias ) )
+                e.aliases.add( request.alias );
+            else
+                e.aliases = e.aliases.filter( function(z){ return z != request.alias } );
+        }
+    mysite._save();
+    response.sendRedirectTemporary( "/admin/cloud/" );
+    return;
+}
 
 if ( request.remove == "db" ){
     if ( mysite.removeDB( request.name ) ){
