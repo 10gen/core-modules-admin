@@ -79,9 +79,9 @@ if ( tab == "copyUser" && request.db ){
     var theDB = mysite.findDB( request.db );
     if ( ! theDB )
         return myError( "can't find db [" + request.db + "]" );
-    if ( ! theDB.getConnection )
-        return myError( "don't support this yet" );
-    var theirUsers = theDB.getConnection().users;
+    if ( ! mysite.getDBConnection )
+        return myError( "don't support this feature yet" );
+    var theirUsers = mysite.getDBConnection( request.db ).users;
     if ( theirUsers.findOne( { email : user.email } ) )
         return myError( "user with email [" + user.email + "] already exists" );
     theirUsers.save( user );
