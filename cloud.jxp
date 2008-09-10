@@ -38,6 +38,7 @@ if ( ! mysite ){
 
 var display = { 
     base : "/admin/cloud/" , 
+    env : { branch : "BROKEN" , db : "BROKEN" , pool : "BROKEN"} ,
     site : mysite ,
     selectWidget : function(  name , choices , selected ){
         choices = choices || [];
@@ -160,8 +161,7 @@ if ( tab == "env" ){
         }
 
 
-        if ( myenv )
-            display.env = myenv;
+        display.env = myenv || {};
     }
 }
 
