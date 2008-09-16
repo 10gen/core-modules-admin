@@ -45,7 +45,7 @@ else {
 var mylog = log.admin.index.debug;
 
 // AJAX functions that do not require headers/footers
-var ajaxFunctions = [ "showTable", "table", "editCron", "blog/autosave", "doc" ];
+var ajaxFunctions = [ "showTable", "table", "editCron", "blog/autosave", "doc", "chartgen" ];
 
 _openAccess =
     request.getURI().match( /^.admin\/doc$/ ) &&
