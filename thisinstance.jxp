@@ -12,7 +12,17 @@
 *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 *    See the License for the specific language governing permissions and
 *    limitations under the License.
-*/ %>
+*/ 
+
+    var _nullCheck = function( s , d ){
+        if ( s )
+            return s;
+        return d;
+    }
+
+%>
+
+
 
 <h1 style="margin-bottom: 1em;">
   <div class="links-table"></div>
@@ -22,7 +32,7 @@
 <%
     if ( request.action == "Reset Instance" ){
         if ( request.sure ){
-            siteScope.__instance__.reset();
+            siteInstance.reset();
             print( "Instance Reset!" );
         }
         else {
@@ -43,28 +53,35 @@
 
   <tr>
     <th>Created:</th>
-    <td><%= __instance__.getWhenCreated() %></td>
+    <td><%= siteInstance.getWhenCreated() %></td>
   </tr>
 
   <tr>
     <th>Num Request:</th>
-    <td><%= __instance__.getNumRequests() %></td>
+    <td><%= siteInstance.getNumRequests() %></td>
   </tr>
 
   <tr>
     <th>Current Branch or Tag:</th>
-    <td><%= __instance__.getCurrentGitBranch() %></td>
+    <td><%= siteInstance.getCurrentGitBranch() %></td>
   </tr>
 
   <tr>
     <th>Environment Name:</th>
-    <td><%= __instance__.getEnvironmentName() %></td>
+    <td><%= siteInstance.getEnvironmentName() %></td>
   </tr>
 
   <tr>
     <th>DB Host:</th>
     <td><%= db.getConnectPoint() %></td>
   </tr>
+
+  <forin lib siteInstance.getLibraryVersionsLoaded() >
+    <tr>
+      <th><%= lib %></th>
+      <td><%= _nullCheck( siteInstance.getLibraryVersionsLoaded()[lib] , "stable" ) %></td>
+    </tr>
+  </forin>
 
 </table>
 </div>
