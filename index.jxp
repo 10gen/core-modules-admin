@@ -16,6 +16,8 @@
 
 <%
 
+siteInstance = __instance__.getSiteInstance();
+
 var adminIndexStart = new Date();
 
 if(siteScope){

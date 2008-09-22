@@ -26,14 +26,14 @@ if ( thing == "index" )
     thing = null;
 
 var javaCloud = javaStatic(  "ed.cloud.Cloud" , "getInstanceIfOnGrid" );
-if ( ! ( javaCloud && __instance__ && __instance__.getName() ) ) 
+if ( ! ( javaCloud && siteInstance && siteInstance.getName() ) ) 
     return myError( "You are not running inside a cloud" ); 
 
 var jsCloud = javaCloud.getScope().Cloud;
-var mysite = jsCloud.getScope().db.sites.findOne( { name : __instance__.getName() } );
+var mysite = jsCloud.getScope().db.sites.findOne( { name : siteInstance.getName() } );
 
 if ( ! mysite ){
-    return myError( "can't find your site [" + __instance__.getName() + "] in the cloud:(  contact your administrator" ); 
+    return myError( "can't find your site [" + siteInstance.getName() + "] in the cloud:(  contact your administrator" ); 
 }
 
 var display = { 
@@ -73,7 +73,7 @@ var display = {
     
 };
 
-display.currentEnvironment = __instance__.getEnvironmentName();
+display.currentEnvironment = siteInstance.getEnvironmentName();
 display.uber = user.email.match( /@10gen.com/ );
 
 if ( tab == "copyUser" && request.db ){
