@@ -83,6 +83,11 @@
     </tr>
   </forin>
 
+  <tr>
+    <th>Approximate Size:</th>
+    <td><%= Math.ceil( siteInstance.approxSize() / ( 1024 * 1024 ) ) %>mb</td>
+  </tr>
+
 </table>
 </div>
 
