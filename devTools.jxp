@@ -5,7 +5,9 @@
         session[ name ] = ! session[ name ];
     }
    var sessionControls = [ "profiling" , "logs" ]; 
-   var help = { profiling: "a", logs: "b" };
+   var help = { 
+       profiling: "Database profiling", 
+       logs: "Show log output of page at the bottom of the page in an HTML comment" };
 %>
 <table class="admin adminside">
   <forarray control sessionControls>
