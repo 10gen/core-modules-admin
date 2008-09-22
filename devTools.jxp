@@ -4,14 +4,16 @@
         var name = "dev_" + request.control;
         session[ name ] = ! session[ name ];
     }
+   var sessionControls = [ "profiling" , "logs" ]; 
+   var help = { profiling: "a", logs: "b" };
 %>
-<% var sessionControls = [ "profiling" , "logs" ]; %>
 <table class="admin adminside">
   <forarray control sessionControls>
     <tr>
       <th><%= control %></th>
       <td><%= session["dev_" + control] ? "<b>ON</b>" : "off"  %></td>
       <td><a href="/admin/devTools?action=toggle&control=<%= control %>">toggle</a></td>
+      <td><%= help[control] %></td>
     </tr>
   </forarray>
 </table>
