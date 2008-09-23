@@ -74,7 +74,8 @@
     <td>
       <a href="http://{{ e.name }}.{{ site.name }}.10gen.com/" target="env_{{ e.name }}_{{site.name}}">view</a> | 
       <a href="/admin/cloud/env/{{ e.name }}">edit</a> |
-      <a href="javascript:confirmDelete( 'Environment {{ e.name }}' , '/admin/cloud/?remove=env&name={{ e.name }}' )">remove</a>
+      <a href="javascript:confirmDelete( 'Environment {{ e.name }}' , '/admin/cloud/?remove=env&name={{ e.name }}' )">remove</a> |
+      <a href="/admin/cloud/seeall/{{ e.name }}">see all servers</a>
     </td>
     <td>
       <a href="/admin/cloud/reset?name={{ e.name }}">Update Code</a> |
