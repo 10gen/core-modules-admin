@@ -69,7 +69,8 @@ var display = {
                     all.addAll( e.aliases );
             }
         return all;
-    }
+    } ,
+    rand : Math.random()
     
 };
 
@@ -163,6 +164,18 @@ if ( tab == "env" ){
 
         display.env = myenv || {};
     }
+}
+
+if ( tab == "seeall" ){
+    display.env = mysite.findEnvironment( thing );
+    if ( ! display.env )
+        return myError( "can't find environment [" + thing + "]" );
+    
+    var pool = jsCloud.Pool.findByName( display.env.pool );
+    if ( ! pool )
+        return myError( "can't find pool [" + display.env.pool + "]" );
+    
+    display.machines = pool.machines;
 }
 
 if ( ! core.modules.admin.cloud[tab] ) 

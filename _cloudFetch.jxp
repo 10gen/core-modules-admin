@@ -1,0 +1,20 @@
+<%
+    var x = new XMLHttpRequest( "GET" , "http://" + request.machine + ":8080/" );
+var host = request.env + "." + siteInstance.getName() + ".10gen.com";
+x.setRequestHeader( "Host" , host );
+if ( ! x.send() ){
+    print( "error<br>" );
+    print( x.error );
+    print( "<hr>" + x.getRequestHeader().replace( /\n/g , "<br>" ) );
+    x.error.printStackTrace();
+    return;
+}
+var base = "<base href=\"http://" + host + "\" />";
+print( base );
+
+
+var out = x.responseText;
+out = out.replace( /<head>/ , "<head>"  + base );
+
+print( out );
+%>

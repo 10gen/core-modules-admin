@@ -1,0 +1,9 @@
+
+<h2>All servers for <b>{{ env }}</b></h2>
+
+{% for m in machines %}
+<h3>{{ m }}</h3>
+<iframe id="{{ rand }}{{env }}{{ m }}" src="/admin/_cloudFetch?env={{ env }}&machine={{ m }}" width="700" height="350" >
+</iframe>
+<hr>
+{% endfor %}
