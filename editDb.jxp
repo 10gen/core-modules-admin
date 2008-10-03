@@ -39,6 +39,10 @@ if ( request.action == "deletefile" ){
     var file = db._files.findOne({ _id: request._id});
     if ( file ){
         file.remove();
+        print( "done" );
+    }
+    else {
+        print( "no file" );
     }
 }
 else if(request.action == "drop") {

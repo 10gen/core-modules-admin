@@ -75,13 +75,16 @@ function loadPage(pagenum) {
     refreshTable();
 }
 
-function refreshTable(passData){
+function refreshTable(passData, messageNode){
     if(passData)
         passData = passData+"&";
     else
         passData = "";
     ajax("ns=admin._files&action=filessearch&currentPage="+currentPage+"&sortcol=uploadDate&sortdir=-1&"+passData+lastSearch, "table", function(response) {
-        document.getElementById("myCollection").innerHTML = response;
+        var myDiv = document.getElementById("myCollection");
+        myDiv.innerHTML = response;
+        if(messageNode)
+            myDiv.insertBefore(messageNode, myDiv.childNodes[0]);
         document.getElementById("loadingMsg").style.display = "none";
     });
 }
@@ -105,7 +108,13 @@ function deleteFile(id, name) {
     var handleYes = function() {
         document.getElementById("loadingMsg").style.display = "block";
         ajax("action=deletefile&_id="+id, "editDb", function(r) {
-            refreshTable();
+            var newNode = null;
+            if(r){
+                newNode = document.createElement("div");
+                newNode.innerHTML = r;
+                newNode.className = 'error';
+            }
+            refreshTable(null, newNode);
         });
         this.hide();
     };
