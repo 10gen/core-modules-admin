@@ -127,6 +127,7 @@ if(request.mode == "bash"){
 var buffer = Buffer();
 print = buffer;
 try {
+    theScope.makeThreadLocal();
     res = theScope.eval( command , "aaaa" + shellId , null );
 }
 catch (e){
@@ -144,6 +145,7 @@ catch (e){
     }
 }
 finally{
+    scope.makeThreadLocal();
     print = oldprint;
 }
 
