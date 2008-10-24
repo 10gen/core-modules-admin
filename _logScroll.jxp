@@ -5,19 +5,29 @@ var n;
 var ll = request.log_level;
 if(request.action == "filter") {
     var searchObj = {};
-    if(request.log_level && request.log_level != "ALL") searchObj.level = request.log_level;
-    if(request.ns) searchObj.logger = request.ns;
-    if(request.filter) searchObj.msg = new RegExp(request.filter);
-    n = db._logs.find( searchObj ).limit(100).toArray();
+    if( request.log_level ) {
+        var levels = [];
+        switch ( request.log_level ) {
+        case "DEBUG" :
+            levels.push( "(DEBUG)" );
+        case "INFO" : 
+            levels.push( "(INFO)" );
+        case "ERROR" : 
+            levels.push( "(ERROR)" );
+        case "FATAL" : 
+            levels.push( "(FATAL)" );
+        }
+        searchObj.level = new RegExp( levels.join( "|" ) );
+    }
+    if( request.ns ) searchObj.logger = request.ns;
+    if( request.filter ) searchObj.msg = new RegExp(request.filter);
+    n = db._logs.find( searchObj ).sort({ date : -1 }).limit(100).toArray();
 }
 else
-    n = db._logs.find().limit(100).toArray();
+    n = db._logs.find().sort({ date : -1 }).limit(100).toArray();
 
 if ( !n )
     throw "no all";
-
-/* Sort desc */
-n.reverse();
 
 var since = null;
 if ( request.since ) {
