@@ -16,7 +16,8 @@
 */
 
 function fnCallback(e) {
-    if(e.target.className != "partialText" )
+    target = e.target ? e.target : e.srcElement;
+    if(target.className != "partialText" )
         return;
 
     if(e.ctrlKey == false) {
@@ -25,8 +26,14 @@ function fnCallback(e) {
             divs[i].style.display = "none";
         }
     }
-    if(YAHOO.util.Dom.getNextSibling(e.target))
-        YAHOO.util.Dom.getNextSibling(e.target).style.display = "block";
+    if(YAHOO.util.Dom.getNextSibling(target))
+        YAHOO.util.Dom.getNextSibling(target).style.display = "block";
 }
 
-document.getElementById("myCollection").addEventListener('click', fnCallback, false);
+if( document.addEventListener ) {
+    document.getElementById("myCollection").addEventListener('click', fnCallback, false);
+}
+else {
+    document.getElementById("myCollection").attachEvent( 'onclick', fnCallback, false );
+}
+
