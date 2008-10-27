@@ -69,6 +69,11 @@ function updateLogHandler( raw ){
     document.getElementById("temp").innerHTML = raw;
     // the jxp is returning 100 text nodes and 100 trs, so we filter out the text nodes
     var rawlines = document.getElementById("temp").childNodes[1];
+    // safari creates tables with a different structure than firefox does, of course
+    if( rawlines != null && rawlines.nodeName == "TR" ) {
+        var rawlines = document.getElementById("temp");
+    }
+
     if(!rawlines || !rawlines.childNodes) {
         if(timeout > 1) timeout--;
         else setTimeout( updateLog , 1000 );
@@ -88,7 +93,7 @@ function updateLogHandler( raw ){
     }
 
     if ( !mostRecent || mostRecent < mr ) {
-       mostRecent = mr;
+        mostRecent = mr;
     }
 
     while(rows > 100) {
@@ -102,7 +107,7 @@ function updateLogHandler( raw ){
         timeout--;
     }
     else {
-       setTimeout( updateLog , 1000 );
+        setTimeout( updateLog , 1000 );
     }
 }
 
