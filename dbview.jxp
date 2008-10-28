@@ -61,7 +61,7 @@ if(!top) {
     var introMsg = "Collection Detail provides the user with a means to edit collection detail records, view collection sizing and statistics information, add/drop collection indexes, and query/filter the collection data.";
 
     %>
-    <p><a href="dbview?currentPage=<%= request.refPage ? request.refPage : 1 %>" style="display: block;">Back to Collection View</a></p>
+    <p><a href="dbview?currentPage=<%= request.refPage ? request.refPage : 1 %>">Collection View</a>&nbsp;&gt;&nbsp;Collection: <%= request.ns %></p>
     <%
     var r = new RegExp(request.ns+".*");
     var metarows = db["system.namespaces"].find({name: r}).limit(200).toArray();
