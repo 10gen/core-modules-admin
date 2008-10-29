@@ -96,3 +96,10 @@
 {{ site.getGitBranchNames().join( "  ") }}
 <br>
 <a href="/admin/cloud/?forceGitUpdate=true">force update</a>
+
+<h2>Recent Changes</h2>
+<ul>
+  {% for c in site.changes %}
+  <li>{{ c.type }} | {{ c.what }} -- {{ c.description }} on {{ c.when }} by {{ c.who }}</li>
+  {% endfor %}
+</ul>

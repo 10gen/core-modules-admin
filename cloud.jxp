@@ -40,6 +40,9 @@ var display = {
     base : "/admin/cloud/" , 
     env : { branch : "BROKEN" , db : "BROKEN" , pool : "BROKEN"} ,
     site : mysite ,
+    db : {} ,
+    alldbs : jsCloud.DB.getAllDBNames() ,
+    
     selectWidget : function(  name , choices , selected ){
         choices = choices || [];
         var html = "";
@@ -135,7 +138,6 @@ if ( request.remove == "env" ){
 
 
 if ( tab == "db" ){
-    display.alldbs = jsCloud.DB.getAllDBNames();
 
     var dbName = thing || request.name;
     if ( dbName ){
@@ -148,7 +150,7 @@ if ( tab == "db" ){
         }
     }
     
-    display.db = mydb;
+    display.db = mydb || {};
 }
 
 if ( tab == "env" ){
