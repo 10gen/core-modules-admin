@@ -93,6 +93,6 @@
 <br>
 
 <b>Tag and Branch names:</b>
-{{ site.getGitBranchNames }}
+{{ site.getGitBranchNames().join( "  ") }}
 <br>
 <a href="/admin/cloud/?forceGitUpdate=true">force update</a>
