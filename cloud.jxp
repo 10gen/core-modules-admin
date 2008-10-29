@@ -77,6 +77,11 @@ var display = {
 display.currentEnvironment = siteInstance.getEnvironmentName();
 display.uber = user.email.match( /@10gen.com/ );
 
+if ( request.forceGitUpdate ){
+    mysite.getGitBranchNames( true );
+    print( "forced git tag/branch name update" );
+}
+
 if ( tab == "copyUser" && request.db ){
     var theDB = mysite.findDB( request.db );
     if ( ! theDB )
@@ -182,5 +187,5 @@ if ( ! core.modules.admin.cloud[tab] )
     return myError( "unknown tab [" + tab + "]" );
 core.modules.admin.cloud[ tab ]( display );
 %>
-<br><br>
+<hr>
 <a href="http://www.10gen.com/wiki/deployment">help</a>
