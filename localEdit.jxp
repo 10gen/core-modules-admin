@@ -17,7 +17,7 @@
 <% head.addScript( "/@@/vi/vi.js" ); %>
 <% head.addCSS( "/@@/vi/vi.css" ); %>
 <% head.addScript( "/@@/prototype/current/prototype.js" ); %>
-<% head.addScript( "/@@/yui/current/yuiloader/yuiloader-beta.js" ); %>
+<% head.addScript( "/@@/yui/current/yuiloader/yuiloader.js" ); %>
 <% head.addScript( "NOCDN/admin/assets/localEdit.js" ); %>
 
 <hr>

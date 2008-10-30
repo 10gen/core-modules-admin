@@ -162,7 +162,7 @@ var deleteCancel = function(){
   var loader = new YAHOO.util.YUILoader();
   loader.insert({
       require: ['container'],
-      base: '/@@/yui/2.5.1/',
+      base: '/@@/yui/current/',
       onSuccess: function(loader){
           deletePanel = new YAHOO.widget.Dialog('deletePanelDiv', {
               fixedcenter: true,

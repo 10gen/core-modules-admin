@@ -57,7 +57,7 @@ head.addCSS("NOCDN/admin/assets/logger-skin.css");
 </div>
 
 <script type="text/javascript" src="/~~/ui/js/compat.js"></script>
-<script type="text/javascript" src="/@@/yui/current/yuiloader/yuiloader-beta.js"></script>
+<script type="text/javascript" src="/@@/yui/current/yuiloader/yuiloader.js"></script>
 <script type="text/javascript" src="/@@/dojo/current/dojo/dojo.js"></script>
 <script type="text/javascript" src="NOCDN/admin/assets/interpreter.js"></script>
 	<div class="yui-skin-sam"> 
