@@ -40,6 +40,9 @@ var display = {
     base : "/admin/cloud/" , 
     env : { branch : "BROKEN" , db : "BROKEN" , pool : "BROKEN"} ,
     site : mysite ,
+    db : {} ,
+    alldbs : jsCloud.DB.getAllDBNames() ,
+    
     selectWidget : function(  name , choices , selected ){
         choices = choices || [];
         var html = "";
@@ -76,6 +79,11 @@ var display = {
 
 display.currentEnvironment = siteInstance.getEnvironmentName();
 display.uber = user.email.match( /@10gen.com/ );
+
+if ( request.forceGitUpdate ){
+    mysite.getGitBranchNames( true );
+    print( "forced git tag/branch name update" );
+}
 
 if ( tab == "copyUser" && request.db ){
     var theDB = mysite.findDB( request.db );
@@ -130,7 +138,6 @@ if ( request.remove == "env" ){
 
 
 if ( tab == "db" ){
-    display.alldbs = jsCloud.DB.getAllDBNames();
 
     var dbName = thing || request.name;
     if ( dbName ){
@@ -143,7 +150,7 @@ if ( tab == "db" ){
         }
     }
     
-    display.db = mydb;
+    display.db = mydb || {};
 }
 
 if ( tab == "env" ){
@@ -182,5 +189,5 @@ if ( ! core.modules.admin.cloud[tab] )
     return myError( "unknown tab [" + tab + "]" );
 core.modules.admin.cloud[ tab ]( display );
 %>
-<br><br>
+<hr>
 <a href="http://www.10gen.com/wiki/deployment">help</a>
