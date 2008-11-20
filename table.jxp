@@ -313,10 +313,6 @@ else {
     }
     if(request.action != "searchprofile" && dbTable.rows.length > 0) th.push({heading: "Delete", className: "center", name: "Delete", searchable: false });
 
-    idFormatter = function(oData) {
-        return '<a><span style="cursor:pointer" onclick="editRow(\''+oData+'\')">'+oData+'</span></a>';
-    }
-
     deleteBtnFormatter = function(id, field) {
         if(field)
             return '<img src="NOCDN/admin/assets/img/button_delete_on_white.gif" onclick="deleteRow(\''+id.getTime()+'\', \''+field+'\')" />';
@@ -471,7 +467,7 @@ else if(request.action != "searchprofile") {
             dbTable.rows[i].Delete = deleteBtnFormatter(new Date(rows[i][uniqueKey]), uniqueKey);
         }
         for(var field in th) {
-            if(th[field].name == "_id") dbTable.rows[i].id = idFormatter(dbTable.rows[i]._id);
+            if(th[field].name == "_id") dbTable.rows[i].id = dbTable.rows[i]._id + "";
             else if(field < th.length-1) dbTable.rows[i][th[field].name] = strFormatter(dbTable.rows[i], th[field].name);
         }
     }
