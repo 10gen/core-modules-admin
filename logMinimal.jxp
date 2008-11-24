@@ -1,0 +1,40 @@
+<div style="font-family: monospace">
+
+<form method="POST">
+  Message range: <input type="text" name="min" value="0" /> to <input type="text" name="max" value="100" />
+  <input type="submit" value="submit" />
+</form>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th></th>
+    <th></th>
+    <th>Message</th>
+    <th></th>
+    <th>Thread</th>
+    <th></th>
+  </tr>
+
+<%
+var min = request.min ? parseInt( request.min ) : 0;
+var max = request.max ? parseInt( request.max ) : 100;
+max = max - min;
+var cursor = db._logs.find().sort({date : -1}).skip( min ).limit( max );
+while( cursor.hasNext() ) {
+   var foo = cursor.next();
+   %>
+   <tr>
+     <td><%= foo.date ? foo.date : "" %></td>
+     <td><%= foo.level ? foo.level : "" %></td>
+     <td><%= foo.logger ? foo.logger : "" %></td>
+     <td><%= foo.msg ? foo.msg : "" %></td>
+     <td><%= foo.request ? foo.request : "" %></td>
+     <td><%= foo.thread ? foo.thread : "" %></td>
+     <td><%= foo.throwable ? foo.throwable : "" %></td>
+   </tr>
+   <%
+}
+%>
+</table>
+</div>
