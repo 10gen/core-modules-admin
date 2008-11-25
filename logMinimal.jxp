@@ -1,7 +1,24 @@
 <div style="font-family: monospace">
 
 <form method="POST">
-  Message range: <input type="text" name="min" value="0" /> to <input type="text" name="max" value="100" />
+  <div>
+    Message range: <input type="text" name="min" value="0" /> to <input type="text" name="max" value="100" />
+  </div>
+  <div>
+    Level: 
+    <div>
+      <input type="checkbox" name="debug" value="1" /> DEBUG<br />
+      <input type="checkbox" name="info" value="1" /> INFO<br />
+      <input type="checkbox" name="error" value="1" /> ERROR<br />
+      <input type="checkbox" name="fatal" value="1" /> FATAL<br />
+    </div>
+  </div>
+  <div>
+    Logger regex: <input type="text" name="logger" />
+  </div>
+  <div>
+    Message regex: <input type="text" name="msg" />
+  </div>
   <input type="submit" value="submit" />
 </form>
 
@@ -20,7 +37,27 @@
 var min = request.min ? parseInt( request.min ) : 0;
 var max = request.max ? parseInt( request.max ) : 100;
 max = max - min;
-var cursor = db._logs.find().sort({date : -1}).skip( min ).limit( max );
+
+var level = [];
+if( request.debug ) level.push( "DEBUG" );
+if( request.info ) level.push( "INFO" );
+if( request.error ) level.push( "ERROR" );
+if( request.fatal ) level.push( "FATAL" );
+if( level.length == 0 )
+    level = new RegExp( ".*" );
+else
+    level = level.join( "|" );
+
+var logger = /.*/;
+if( request.logger && request.logger.trim() != "" ) {
+    logger = new RegExp( request.logger.trim() );
+}
+var msg = /.*/;
+if( request.msg && request.msg.trim() != "" ) {
+    msg = new RegExp( request.msg.trim() );
+}
+
+var cursor = db._logs.find({ level : level, logger : logger, msg: msg }).sort({date : -1}).skip( min ).limit( max );
 while( cursor.hasNext() ) {
    var foo = cursor.next();
    %>
