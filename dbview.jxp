@@ -137,6 +137,7 @@ function hideObj(i) {
 }
 
 function deleteRow(id, field) {
+    var tr = document.getElementById( "tr"+id );
     var handleDeleteRow = function() {
         if(field)
             var passData = "ns=<%= request.ns %>&action=delete&name="+field+"&val="+id;
@@ -147,7 +148,13 @@ function deleteRow(id, field) {
         });
         this.hide();
     }
+    var handleNoDeleteRow = function() {
+        tr.className = "white-main";
+        this.hide();
+    }
 
+
+    tr.className = "highlight-row";
     var simpledialog1 = new YAHOO.widget.SimpleDialog("dropTableDlg",
         { width: "300px",
         fixedcenter: true,
@@ -157,7 +164,7 @@ function deleteRow(id, field) {
         icon: YAHOO.widget.SimpleDialog.ICON_WARN,
         text: "Are you sure you want to delete this row?",
         buttons: [ { text:"Yes", handler:handleDeleteRow },
-        { text:"No", handler:handleNo, isDefault:true } ]
+        { text:"No", handler:handleNoDeleteRow, isDefault:true } ]
         } );
     simpledialog1.setHeader("Delete Row");
     simpledialog1.render("myMarkedUpContainer");

@@ -960,3 +960,6 @@ div.error {
 .mono {
       font-family: monospace;
 }
+.highlight-row {
+      background-color: #CAE9EF;
+}
