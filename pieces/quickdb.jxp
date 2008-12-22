@@ -1,0 +1,309 @@
+<% /**
+*      Copyright (C) 2008 10gen Inc.
+*  
+*    Licensed under the Apache License, Version 2.0 (the "License");
+*    you may not use this file except in compliance with the License.
+*    You may obtain a copy of the License at
+*  
+*       http://www.apache.org/licenses/LICENSE-2.0
+*  
+*    Unless required by applicable law or agreed to in writing, software
+*    distributed under the License is distributed on an "AS IS" BASIS,
+*    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*    See the License for the specific language governing permissions and
+*    limitations under the License.
+*/ 
+%>
+
+<html>
+<head>
+  <title>QuickDB</title>
+</head>
+<body>
+
+<a href="/admin">&lt; Back to admin</a>
+<h1><a href="/admin/quickdb">Overview</a>
+<% if( !top ) { %>
+    &gt; <a href="/admin/quickdb?ns=<%= request.ns %>"><%= collection %></a>
+    <% if( request.id ) { %>
+        &gt; <%= request.id %>
+    <% } %>
+<% } %>
+</h1>
+
+<%
+
+head.addCSS("NOCDN/admin/assets/admin.css");
+head.addScript("NOCDN/admin/assets/interpreter.js");
+//head.addScript( "NOCDN/admin/assets/objPopup.js" );
+
+head.addScript("/~~/ui/js/common.js");
+head.push('<script type="text/javascript" src="/@@/yui/current/yuiloader/yuiloader-min.js" ></script>');
+head.addCSS("/@@/yui/current/datatable/assets/skins/sam/datatable.css");
+head.addCSS("/@@/yui/current/logger/assets/skins/sam/logger.css");
+head.addCSS("/@@/yui/current/button/assets/skins/sam/button.css");
+head.addCSS("/@@/yui/current/container/assets/skins/sam/container.css");
+
+head.addScript("/@@/yui/current/yahoo-dom-event/yahoo-dom-event.js");
+head.addScript("/@@/yui/current/element/element-beta-min.js");
+head.addScript("/@@/yui/current/button/button-min.js");
+head.addScript("/@@/yui/current/datasource/datasource-beta-debug.js");
+
+head.addScript("/@@/yui/current/datatable/datatable-beta-debug.js");
+head.addScript("/@@/yui/current/logger/logger-debug.js");
+head.addScript("/@@/yui/current/container/container-min.js");
+head.addScript("/@@/yui/current/utilities/utilities.js");
+
+if( !arguments[0].objView ) {
+
+%>
+
+<script type="text/javascript">
+var lastSearch = "";
+
+function infoDlg(hd, msg) {
+    var simpledialog1 = new YAHOO.widget.SimpleDialog("dropTableDlg",
+        { width: "300px",
+        fixedcenter: true,
+        draggable: true,
+        visible: false,
+        close: true,
+        text: msg,
+        buttons: [ { text:"OK", handler:handleNo, isDefault:true } ]
+        } );
+    simpledialog1.setHeader(hd);
+    simpledialog1.render("myMarkedUpContainer");
+    simpledialog1.show();
+}
+
+var currentSort = { col : '<%= top ? 'name' : ( request.sortcol ? request.sortcol : '_id' ) %>', 
+    dir: <%= request.sortdir ? request.sortdir : 1 %> };
+
+function sortBy(col) {
+    if(currentSort.col == col)
+        currentSort.dir = -1 * currentSort.dir;
+    else
+        currentSort.dir = 1;
+    currentSort.col = col;
+
+    refreshTable();
+}
+
+function deleteRow(id, field) {
+    var tr = document.getElementById( "tr"+id );
+    var handleDeleteRow = function() {
+        if(field)
+            var passData = "ns=<%= request.ns %>&action=delete&name="+field+"&val="+id;
+        else
+            var passData = "ns=<%= request.ns %>&action=delete&id="+id;
+        ajax(passData, "editDb", function(response) {
+            refreshTable();
+        });
+        this.hide();
+    }
+    var handleNoDeleteRow = function() {
+        tr.className = "white-main";
+        this.hide();
+    }
+
+
+    tr.className = "highlight-row";
+    var simpledialog1 = new YAHOO.widget.SimpleDialog("dropTableDlg",
+        { width: "300px",
+        fixedcenter: true,
+        draggable: true,
+        visible: false,
+        close: true,
+        icon: YAHOO.widget.SimpleDialog.ICON_WARN,
+        text: "Are you sure you want to delete this row?",
+        buttons: [ { text:"Yes", handler:handleDeleteRow },
+        { text:"No", handler:handleNoDeleteRow, isDefault:true } ]
+        } );
+    simpledialog1.setHeader("Delete Row");
+    simpledialog1.render("myMarkedUpContainer");
+    simpledialog1.show();
+}
+
+function toggleVisible(i) {
+     var elem = document.getElementById("div"+i);
+     if(elem.style.display == "block")
+         elem.style.display = "none";
+     else
+         elem.style.display = "block";
+}
+
+var currentSearch = {};
+
+/* should we support multiple searches on one key? */
+function addToSearch() {
+    var sel = document.getElementById("searchopt");
+    var key = sel.value;
+    var val = document.getElementById("searchtext").value;
+    currentSearch[key] = val;
+
+    // reset search fields
+    sel.options[0].selected = true;
+    document.getElementById("searchtext").value = "";
+
+    // update searchbox
+    var terms = [];
+    for(var i in currentSearch) {
+        terms.push( i+": "+currentSearch[i] );
+    }
+    document.getElementById("searchbox").value = "<%= (request.ns) ? 'db.'+request.ns.substring(request.ns.indexOf('.')+1) : 'db[system.namespaces]' %>.find({ " + terms.join(",") + " });";
+}
+
+<% if(!top) { %>
+
+function changeSearchbox() {
+    newIndex = "db.<%= request.ns.substring( request.ns.indexOf('.')+1 ) %>.ensureIndex({";
+    eiAr = [];
+
+    var newidx = document.getElementsByName("createidx");
+    for(var i=0; i<newidx.length; i++) {
+        if(newidx[i].checked)
+            newIndex += newidx[i].value + ": 1, ";
+    }
+    newIndex = newIndex.substring(0, newIndex.length-2) + " });";
+}
+
+function refreshSearch() {
+    lastSearch = "";
+    refreshTable();
+}
+
+<% } // end of if(!top) %>
+
+function doSearch() {
+    var passData = getSearchArgs();
+    lastSearch = passData;
+    refreshTable();
+}
+function clearSearch() {
+    document.getElementById("searchtext").value = "";
+    if (document.getElementById("searchopt").options[0])
+        document.getElementById("searchopt").options[0].selected = true;
+    currentSearch = {};
+    currentSort = { col : '<%= top ? 'name' : ((fields.indexOf('_id') != -1) ? '_id' : fields[0]) %>', dir: 1 };
+    lastSearch = "";
+    refreshTable();
+}
+
+var handleNo = function() {
+    this.hide();
+}
+
+var currentPage = 1;
+function loadPage(pagenum) {
+    currentPage = pagenum;
+    refreshTable();
+}
+
+<%
+if(top) {
+    %>
+
+    var handleDrop = function() {
+        ajax("action=drop&ns="+tablename, "editDb", function(x) {
+            refreshTable();
+        });
+        this.hide();
+    }
+
+    function getValidation(tablename) {
+        ajax("action=validation&ns="+tablename, "table", function(response) {
+            var simpledialog1 = new YAHOO.widget.SimpleDialog("simpledialog1",
+                { width: "300px",
+                fixedcenter: true,
+                draggable: true,
+                visible: false,
+                close: true,
+                icon: YAHOO.widget.SimpleDialog.ICON_INFO,
+                text: response,
+                buttons: [ { text:"OK", handler:handleNo, isDefault:true } ]
+                } );
+            simpledialog1.setHeader("Validation");
+            simpledialog1.render("myMarkedUpContainer");
+            simpledialog1.show();
+        });
+    }
+
+    function dropTable(tname) {
+        tablename = tname;
+        var simpledialog1 = new YAHOO.widget.SimpleDialog("dropTableDlg",
+            { width: "300px",
+            fixedcenter: true,
+            draggable: true,
+            visible: false,
+            close: true,
+            icon: YAHOO.widget.SimpleDialog.ICON_WARN,
+            text: "Are you sure you want to drop the collection "+tname+"?",
+            buttons: [ { text:"Yes", handler:handleDrop },
+            { text:"No", handler:handleNo, isDefault:true } ]
+            } );
+        simpledialog1.setHeader("Drop Collection");
+        simpledialog1.render("myMarkedUpContainer");
+        simpledialog1.show();
+    }
+
+    <%
+}
+%>
+
+var tablename = "";
+
+function refreshTable(passData){
+    if(passData)
+        passData = passData+"&";
+    else
+        passData = "";
+    location = "/admin/quickdb?<%= request.ns ? 'ns='+request.ns+'&' : '' %>action=search&currentPage="+currentPage+
+                                 "&sortcol="+currentSort.col+
+                                 "&sortdir="+currentSort.dir+
+                                 "&"+passData+lastSearch;
+}
+
+
+function getSearchArgs() {
+    return document.getElementById("searchopt").value + "=" + document.getElementById("searchtext").value;
+}
+
+</script>
+
+<div id="myMarkedUpContainer" class="yui-skin-sam">
+</div>
+
+<div id="myCollection">
+
+<%
+   adminRoot.pieces.tableHeader( arguments[0] );
+   adminRoot.pieces.dbviewBody( arguments[0] );
+   adminRoot.pieces.tableFooter( arguments[0] );
+}
+else {
+    obj = arguments[0].obj;
+    if( obj == null ) {
+        print( "no such object: _id=" + request.id + ".");
+        return;
+    }
+   %>
+
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>_id : <%= obj._id %></td>
+    <td><%= tojson( obj ) %></td>
+  </tr>
+</table>
+
+<%
+}
+
+%>
+
+</div>
+</body>
+</html>

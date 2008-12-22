@@ -2,6 +2,12 @@ adminRoot = core.modules.admin;
 assert( adminRoot );
 admin = {};
 
+core.ext.pluck();
+core.io.marshal();
+core.io.encode.json();
+core.content.html();
+core.content.regexp();
+
 log.admin.level = log.LEVEL.ERROR;
 
 admin.getAppNav = function(key){

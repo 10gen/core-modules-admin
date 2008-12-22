@@ -1,0 +1,335 @@
+<% /**
+*      Copyright (C) 2008 10gen Inc.
+*  
+*    Licensed under the Apache License, Version 2.0 (the "License");
+*    you may not use this file except in compliance with the License.
+*    You may obtain a copy of the License at
+*  
+*       http://www.apache.org/licenses/LICENSE-2.0
+*  
+*    Unless required by applicable law or agreed to in writing, software
+*    distributed under the License is distributed on an "AS IS" BASIS,
+*    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*    See the License for the specific language governing permissions and
+*    limitations under the License.
+*/
+
+
+// ignore internal transient variables
+var ignore= [ "_ns" , 
+    "_save" , 
+    "_update" ];
+
+var top = false;
+var collection = null;
+var level = 0;
+var search = {};
+var sort = {};
+
+if( request.ns == null ) {
+    top = true;
+    collection = "system.namespaces";
+}
+else if( request.ns ){
+    collection = request.ns.substring( request.ns.indexOf('.')+1 );
+}
+
+if( request.id ){
+    adminRoot.pieces.quickdb( { objView : true, obj : db[ collection ].findOne( { "_id" : request.id } ) } );
+    return;
+}
+
+/* get search obj */
+var getSearch = function() {
+    return search;
+}
+
+var makeSearch = function() {
+    searchobj = {};
+    for(q in request) {
+        if( !request[q] ) continue;
+        if( q.indexOf("search") == 0 && q.length > 6) {
+            var query = new RegExp(".*"+content.RegExp.escape(request[q])+".*", "i");
+            searchobj[q.substring(6)] = query;
+        }
+    }
+    search = searchobj;
+}
+
+/* get sort obj */
+var getSort = function() {
+    return sort;
+}
+
+var makeSort = function() {
+    mySort = {};
+    if(request.sortcol && request.sortcol != "_id") {
+        mySort[request.sortcol] = parseInt(request.sortdir);
+    }
+    sort = mySort;
+}
+
+
+// display-related funcs
+var getSearchOpts = function() {
+    var searchOpts = [];
+    if( level == 1) {
+        var cols = [ "name", "index", "capped" ];
+        var introMsg = "";
+        var searchopts = [ {name : "NAME", className: "sort-down"}, {name : "INDICES" }, {name : "CAPPED", className: "center"} ];
+    }
+    else if( level == 2 ) {
+        var searchopts = [];
+        searchopts.push({"name" : "_id", className: "sort-up" });
+        for(var i in f) {
+            if(ignore[i] || i == "_id") continue;
+            searchopts.push({"name" : i, className: "" });
+        }
+    }
+    // no search for level 3
+    return searchOpts;
+}
+
+var getRows = function( start, rpp ) {
+    if( level == 3 )
+        return db[ collection ].findOne( id );
+    else
+        return db[ collection ].find( getSearch() ).sort( getSort() ).skip( start ).limit( rpp ).toArray();
+}
+
+// get total pages
+var getNumPages = function() {
+    var numrows = 0;
+    if(top) {
+        for(var i=0; i<rows.length; i++) {
+            if(rows[i].name.indexOf("$") == -1) {
+                numrows++;
+            }
+        }
+        totalNumPages = Math.floor((numrows - 1) / rowsPerPage ) + 1;
+    }
+    else {
+        if(request.ns)
+            numrows = db[request.ns.substring(request.ns.indexOf(".")+1)].count( getSearch() );
+        else
+            numrows = rows.length;
+        totalNumPages = Math.floor((numrows - 1) / rowsPerPage) + 1;
+    }
+    return totalNumPages;
+}
+
+makeSearch();
+makeSort();
+
+var rowsPerPage = (request.rowsPerPage) ? parseInt(request.rowsPerPage) : 100;
+var currentPage = (request.currentPage) ? parseInt(request.currentPage) : 1;
+var start = (currentPage - 1) * rowsPerPage;
+
+// get rows
+rows = getRows( start, rowsPerPage );
+var totalNumPages = getNumPages();
+
+if(currentPage > totalNumPages && totalNumPages > 0)
+    currentPage = totalNumPages;
+
+/* if this is all collections, indices will be listed as rows. */
+if(top) {
+    var urow = [];
+    tableCount = -1;
+    for(var i=0; i<rows.length; i++) {
+        if(rows[i].name.indexOf("$") == -1) {
+            tableCount++;
+        }
+        if(start <= tableCount && tableCount <= start+rowsPerPage)
+            urow.push(rows[i]);
+    }
+    rows = urow;
+}
+
+
+var dbTable = { rows : [], 
+    collection : collection,
+    top : top,
+    search : true,
+    totalNumPages : totalNumPages,
+    currentPage : currentPage,
+    rowsPerPage : rowsPerPage };
+
+
+/* --------------
+   get the fields
+   -------------- */
+var fields = [];
+if(top) { 
+    fields.push("name"); 
+    fields.push("index"); 
+}
+else {
+    for( var i=0; i < rows.length; i++ ) {
+        for( var e in rows[i] ) {
+            if( !fields.contains( e ) && !ignore.contains( e ) ) 
+                fields.push( e );
+        }
+    }
+}
+fields.sort();
+
+
+/* ------------------
+   generate the table
+   ------------------ */
+if( top ) {
+    var k = 0;
+    for( var i=0; i < rows.length; i++ ) {
+        var j=0;
+        dbTable.rows[k] = {};
+
+        var obj=rows[i];
+        var currentRow = obj;
+        dbTable.rows[k].name = obj.name;
+        dbTable.rows[k].index = "";
+        while(i<rows.length-1 && rows[i+1].name.indexOf("$") > 0) {
+            obj = rows[++i];
+            var idx=top ? obj.name.indexOf("$") : -1;
+            if( obj.name && idx>=0 ) {
+	        var idxname = obj.name.substring(idx+1);
+                dbTable.rows[k].index += idxname+" ";
+	        var idxobj = db.system.indexes.findOne( { name: idxname, ns: obj.name.substring(0,idx-1) } );
+	        dbTable.rows[k].index += (idxobj?tojson(idxobj.key):"null") + "<br />";
+            }
+        }
+        dbTable.rows[k].capped = (currentRow.capped) ? currentRow.capped : "";
+        k++;
+    }
+}
+else {
+    dbTable.rows = rows;
+}
+
+
+/* Formatting */
+
+if(top) {
+    var th = [ { name : "name", className: "sort-down", heading: "NAME" }, 
+        { heading: "INDICES" }, 
+        { className: "center", heading: "STATS" }, 
+        { className: "center", heading: "DROP COLLECTION" } ];
+}
+else {
+    var th = [];
+    for(var i in fields) {
+        if( ignore.contains( fields[i] ) )
+            continue;
+        th.push({"name" : fields[i], heading: fields[i], className: "" });
+    }
+    if( dbTable.rows.length > 0 ) 
+        th.push({heading: "Delete", className: "center", name: "Delete", searchable: false });
+
+    deleteBtnFormatter = function(id, field) {
+        return '<img src="NOCDN/admin/assets/img/button_delete_on_white.gif" onclick="deleteRow(\''+id+'\')" />';
+    }
+
+    strFormatter = function(obj, field) {
+        if(field in obj && obj[field] == null) {
+            return '<div class="nullfield">null</div>';
+        }
+        else if ( !( field in obj ) ) {
+            return '<div class="nullfield"><b>-</b></div>';
+        }
+        else if (typeof obj[field] == "native" || typeof obj[field] == "function" || typeof obj[field] == "objectid") {
+            return obj[field];
+        }
+        else if(typeof obj[field] == "object" )
+            return "(Object)";
+        else if( obj[field].toString().length >= 20) {
+            return content.HTML.escape( (obj[field] + "").substring( 0, 18 ) )+"...";
+        }
+        else
+            return obj[field];
+    }
+}
+dbTable.th = th;
+
+if( top ) {
+    dbTable.idxes = { name: "name" };
+    for(var i in dbTable.rows) {
+        dbTable.rows[i].url = "quickdb?ns="+dbTable.rows[i].name;
+        dbTable.rows[i].name = dbTable.rows[i].name.substring( dbTable.rows[i].name.indexOf('.')+1 );
+    }
+}
+else {
+    // get any indices for the collection
+    var idxObj = {};
+    idxObj.name = new RegExp(request.ns+"\\.\\$");
+    var idxes = db["system.namespaces"].find(idxObj).toArray();
+    dbTable.idxes = {};
+    // indices are of the form namespace.collection.specifier.$idxname_1, 
+    // and we only want idxname
+    for(var i in idxes) {
+        idxes[i] = idxes[i].name.substring(idxes[i].name.indexOf("$")+1);
+        // some names might have underscores in them (e.g., _system) 
+        // and indices can have multiple fields, so this is done seperately
+        dbTable.idxes[idxes[i].substring(0, idxes[i].indexOf("_"))] = 1;
+    }
+
+    if( !("_id" in fields ) ) {
+        var uniqueKey = db.system.indexes.findOne({ns: request.ns});
+        // if there is no index on the collection, there is no way to 
+        // uniquely identify elements so get rid of the delete button
+        if(!uniqueKey){
+            if(th.length)
+                th.pop();
+        }
+        else {
+            var keyArr = uniqueKey.key;
+            keyArr = Object.keys(keyArr);
+            uniqueKey = keyArr[0];
+        }
+    }
+    for(var i in dbTable.rows) {
+        if( fields.contains( "_id" ) ) {
+            dbTable.rows[i].id = "";
+            dbTable.rows[i].Delete = deleteBtnFormatter( dbTable.rows[i]._id );
+        }
+        for( var field in th ) {
+            if( th[field].name == "_id" ) {
+                dbTable.rows[i].id = "<a href=\"quickdb?ns=" + request.ns+
+                    "&id=" + dbTable.rows[i]._id+
+                    "\">" + dbTable.rows[i]._id + "</a>";
+            }
+            else if( field < th.length-1 ) 
+                dbTable.rows[i][th[field].name] = strFormatter(dbTable.rows[i], th[field].name);
+        }
+    }
+}
+
+var pageStart = Math.max( 1, dbTable.currentPage-2 );
+var pageEnd = Math.min( parseInt(dbTable.totalNumPages), parseInt(dbTable.currentPage)+2 );
+var page = [];
+for(var i=pageStart; i<=pageEnd; i++) {
+    if(dbTable.currentPage == i) {
+        if(i < 10)
+            page.push({ name: i, className: "active" });
+        else
+            page.push({ name: i, className: "modactive" });
+    }
+    else {
+        if(i < 10)
+            page.push({ name: i, className: "" });
+        else
+            page.push({ name: i, className: "mod" });
+    }
+}
+
+dbTable.pageStart = pageStart;
+dbTable.pageEnd = pageEnd;
+dbTable.prevPage = (dbTable.currentPage == 1) ? null : dbTable.currentPage - 1;
+dbTable.nextPage = (dbTable.currentPage == dbTable.totalNumPages) ? null : parseInt(dbTable.currentPage) + 1;
+dbTable.page = page;
+dbTable.table = dbTable;
+
+dbTable.colspan = th.length;
+
+adminRoot.pieces.quickdb( dbTable );
+
+%>

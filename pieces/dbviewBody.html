@@ -82,7 +82,7 @@ if (table.rows.length == 0){
     </if>
     <if (!top)>
       <forin row table.rows>
-        <tr class="white-main" id="tr$table.rows[row].id">
+        <tr class="white-main" id="tr$table.rows[row]._id">
           <td class="left">&nbsp;</td>
           <if (table.rows[row].id)>
             <td>$table.rows[row].id</td>

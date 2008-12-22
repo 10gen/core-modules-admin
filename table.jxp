@@ -15,11 +15,6 @@
 */ %>
 
 <%
-core.ext.pluck();
-core.io.marshal();
-core.io.encode.json();
-core.content.html();
-core.content.regexp();
 
 var collection;
 // ignore internal transient variables
