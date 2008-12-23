@@ -121,6 +121,11 @@ var section = null;
 var sectionHeader = null;
 var sectionFooter = null;
 
+if ( sectionName.match( /^my\// ) ){
+    // this ensures that the site scope is setup
+    __instance__.getSiteInstance().getScope();
+}
+
 if ( sectionName.match( /^my\// ) && local.admin ){
     var stripped = sectionName.substring(3);
     if( stripped.match( /^modules\// ) ){
