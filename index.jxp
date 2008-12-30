@@ -214,7 +214,24 @@ if ( isFunction( section ) ){
         user.adminSection = sectionName;
         db.users.save(user);
     }
-    section();
+    
+    try {
+        section();
+    }
+    catch ( e ){
+        // replace with this when appserver rolled out
+        // print( Exception.toHTML( e ) );
+
+        var t = scope.currentException();
+        while ( t ){
+            print( t  + "<BR>" );
+            for each ( var st in t.getStackTrace() ){
+                print( "&nbsp;&nbsp;&nbsp;&nbsp;" + st + "<BR>" );
+            }
+            t = t.getCause();
+        }
+    }
+    
 }
 else {
     print( "<p>Welcome <b>" +  user.name  + "</b> to the admin section for <b>" +  db.getName() + "</b>" );
