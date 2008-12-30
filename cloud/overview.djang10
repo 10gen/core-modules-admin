@@ -75,13 +75,24 @@
       <a href="/admin/cloud/seeall/{{ e.name }}">see all servers</a>
     </td>
     <td>
-      <a href="/admin/cloud/reset?name={{ e.name }}">Update Code</a> |
-      <a href="/admin/cloud/reset?name={{ e.name }}&full=true">Reset Context</a>
+
+      <form action="/admin/cloud/reset" method="POST" style="display: inline;" >
+        <input type="hidden" name="name" value="{{ e.name }}">
+        <input type="submit" name="action" value="Update Code">
+      </form>
+
+      <form action="/admin/cloud/reset" method="POST" style="display: inline;">
+        <input type="hidden" name="name" value="{{ e.name }}">
+        <input type="hidden" name="full" value="true">
+        <input type="submit" name="action" value="Reset Context">
+      </form>
+
       {% for a in allAliases %}
       {% if not e.aliases.contains( a ) %}
       | <a href="/admin/cloud/stealAlias?name={{ e.name }}&alias={{ a }}">steal alias <b>{{ a }}</b></a>
       {% endif %}
       {% endfor %}
+
     </td>
   </tr>
   {% endfor %}
